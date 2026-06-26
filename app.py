@@ -176,11 +176,11 @@ with tab1:
 # ==================================
 with tab2:
 
+    # ----------------------------------
+    # THEORY
+    # ----------------------------------
     st.header("📚 Transient Theory (Detailed Explanation)")
 
-    # ----------------------------------
-    # 1. INTRODUCTION
-    # ----------------------------------
     st.subheader("1. What is Transient Flow (Water Hammer)?")
 
     st.write(
@@ -200,290 +200,85 @@ with tab2:
     st.markdown("---")
 
     # ----------------------------------
-    # 2. PHYSICAL MECHANISM
+    # FLOW STOPPING TIME
     # ----------------------------------
-    st.subheader("2. Physical Mechanism")
+    st.subheader("⏱️ Flow Stopping Time (Valve Closure / Pump Trip)")
 
     st.write(
-        "Fluid flowing inside a pipe possesses mass and velocity, and therefore momentum. "
-        "When the flow is reduced, this momentum does not disappear instantly. Instead, it gets "
-        "converted into pressure energy, causing a pressure rise."
+        "Flow stopping time represents the duration over which the fluid velocity reduces from its initial value "
+        "to zero. This may occur due to valve closing or pump shutdown."
+    )
+
+    st.subheader("1. Why is Flow Stopping Time Important?")
+
+    st.write(
+        "Flow stopping time directly controls the magnitude of transient pressure. "
+        "A rapid reduction in flow causes a sudden change in momentum, resulting in high pressure surge."
     )
 
     st.write(
-        "This pressure rise travels in the form of a wave along the pipeline. The wave reflects at "
-        "boundaries such as closed valves, reservoirs, or pipe ends, creating oscillations."
+        "👉 Short time (fast closure) → large surge pressure\n"
+        "👉 Long time (slow closure) → smaller surge pressure"
+    )
+
+    st.markdown("---")
+
+    st.subheader("2. Physical Understanding")
+
+    st.write(
+        "Fluid flowing in a pipe has momentum. When flow is stopped, this momentum must be dissipated. "
+        "If the stopping occurs quickly, the energy converts into pressure almost instantly, "
+        "creating a high pressure wave."
     )
 
     st.write(
-        "Similarly, if flow drops rapidly (for example during pump trip), pressure may fall below "
-        "atmospheric levels, creating vacuum conditions."
+        "If the stopping is gradual, the energy is released slowly, resulting in a lower pressure rise."
+    )
+
+    st.markdown("---")
+
+    st.subheader("3. Critical Time Concept")
+
+    st.latex(r"t_c = \frac{2L}{a}")
+
+    st.write(
+        "👉 If closure time is LESS than critical time → high surge (rapid event)\n"
+        "👉 If closure time is GREATER than critical time → reduced surge (gradual event)"
     )
 
     st.markdown("---")
 
     # ----------------------------------
-    # 3. WAVE SPEED
+    # DESIGN GUIDELINES
     # ----------------------------------
-    st.subheader("3. Wave Speed (a)")
+    st.header("📘 Design Guidelines (HI / BS EN / SSG)")
 
-    st.latex(r"a = \sqrt{\frac{K}{\rho \left(1 + \frac{K D}{E t} \right)}}")
-
-    st.write("Where:")
-    st.write("• a = Pressure wave speed (m/s)")
-    st.write("• K = Bulk modulus of fluid (compressibility)")
-    st.write("• ρ = Fluid density")
-    st.write("• E = Pipe material elasticity")
-    st.write("• D = Pipe diameter")
-    st.write("• t = Pipe thickness")
-
-    st.write(
-        "Wave speed determines how fast the pressure disturbance travels through the pipeline."
+    st.info(
+        "Based on general engineering practices from Hydraulic Institute (HI), "
+        "BS EN standards, and SSG (UK water industry guidance)."
     )
 
-    st.write(
-        "👉 Stiffer pipes and less compressible fluids lead to higher wave speed and higher surge pressure."
-    )
+    st.subheader("Transient Pressure Limits")
 
-    st.markdown("---")
-
-    # ----------------------------------
-    # 4. SURGE PRESSURE
-    # ----------------------------------
-    st.subheader("4. Surge Pressure (Realistic Condition)")
-
-    st.latex(r"\Delta P = \frac{\rho L V}{t}")
-
-    st.write("Where:")
-    st.write("• ΔP = Surge pressure")
-    st.write("• L = Pipe length")
-    st.write("• V = Flow velocity")
-    st.write("• t = Flow stopping time")
-
-    st.write(
-        "This equation represents a more realistic condition where flow is reduced over a finite time period."
-    )
-    st.write("* Faster stopping time → higher surge pressure")
-    st.write("* Longer pipeline → higher pressure")
-    st.write("* Higher velocity → higher surge")
-    
-    
-    st.markdown("---")
-
-    # ----------------------------------
-    # 5. TYPES OF TRANSIENT EVENTS
-    # ----------------------------------
-    st.subheader("5. Common Causes of Transients")
-
-    st.write("• Rapid valve closure")
-    st.write("• Pump start or sudden shutdown")
-    st.write("• Power failure at pumping stations")
-    st.write("• Sudden change in demand conditions")
-
-    st.markdown("---")
-
-    # ----------------------------------
-    # 6. EFFECTS OF TRANSIENTS
-    # ----------------------------------
-    st.subheader("6. Effects on Pipeline System")
-
-    st.write(
-        "Transient events can lead to pressure rise, pressure drop, oscillations, "
-        "and unstable system behaviour."
-    )
-
-    st.write(
-        "These effects may cause structural damage, operational difficulties, and "
-        "reduced system life."
-    )
-
-    st.markdown("---")
-
-    # ----------------------------------
-    # 7. HOW TO CONTROL TRANSIENTS
-    # ----------------------------------
-    st.subheader("7. Methods to Control Transients")
-
-    st.write("• Increase valve closing time (slow operation)")
-    st.write("• Provide surge tanks or air vessels")
-    st.write("• Install pressure relief valves")
-    st.write("• Use non-slam check valves")
-    st.write("• Maintain proper system velocity")
-
-    st.markdown("---")
-
-    # ----------------------------------
-    # 8. ENGINEERING OBJECTIVE
-    # ----------------------------------
-    st.subheader("8. Engineering Objective")
-
-    st.write(
-        "The main goal of transient analysis is to ensure that the maximum pressure during any "
-        "operating condition remains within the allowable limits of the pipeline system."
-    )
-
-    st.write(
-        "This is achieved by combining proper system design, controlled operation, and use of "
-        "surge protection devices."
-    )
-
-    st.success("✅ Design Goal: Keep transient pressure within safe limits under all conditions")
-
-
-
-st.markdown("---")
-
-# ----------------------------------
-# WHY IT IS IMPORTANT
-# ----------------------------------
-st.subheader("1. Why is Flow Stopping Time Important?")
-
-st.write(
-    "Flow stopping time directly controls the magnitude of transient pressure. "
-    "A rapid reduction in flow causes a sudden change in momentum, resulting in high pressure surge."
-)
-
-st.write(
-    "👉 Short time (fast closure) → large surge pressure\n"
-    "👉 Long time (slow closure) → smaller surge pressure"
-)
-
-st.markdown("---")
-
-# ----------------------------------
-# PHYSICAL UNDERSTANDING
-# ----------------------------------
-st.subheader("2. Physical Understanding")
-
-st.write(
-    "Fluid flowing in a pipe has momentum. When flow is stopped, this momentum must be dissipated. "
-    "If the stopping occurs quickly, the energy converts into pressure almost instantly, "
-    "creating a high pressure wave."
-)
-
-st.write(
-    "If the stopping is gradual, the energy is released slowly, resulting in a lower pressure rise."
-)
-
-st.markdown("---")
-
-# ----------------------------------
-# CRITICAL TIME CONCEPT
-# ----------------------------------
-st.subheader("3. Critical Time Concept")
-
-st.write(
-    "In transient theory, there is a concept of critical time based on wave travel in the pipeline."
-)
-
-st.latex(r"t_c = \frac{2L}{a}")
-
-st.write(
-    "Where:\n"
-    "• t_c = Critical time (sec)\n"
-    "• L = Pipe length (m)\n"
-    "• a = Wave speed (m/s)"
-)
-
-st.write(
-    "👉 If closure time is LESS than critical time → high surge (rapid event)\n"
-    "👉 If closure time is GREATER than critical time → reduced surge (gradual event)"
-)
-
-st.markdown("---")
-
-# ----------------------------------
-# PRACTICAL RANGE
-# ----------------------------------
-st.subheader("4. Practical Engineering Values")
-
-st.write(
-    "In real systems:\n"
-    "• Manual valves → typically slower closure (higher time)\n"
-    "• Automatic valves → faster closure, requires control\n"
-    "• Pump trip → often very fast (critical transient condition)"
-)
-
-st.write(
-    "Pump trip due to power failure is one of the most severe transient cases because "
-    "flow reduction occurs almost instantly."
-)
-
-st.markdown("---")
-
-# ----------------------------------
-# ENGINEERING CONTROL
-# ----------------------------------
-st.subheader("5. How Engineers Control Stopping Time")
-
-st.write(
-    "Engineers manage stopping time to control surge pressure using:"
-)
-
-st.write(
-    "• Actuated valves with controlled closing speed\n"
-    "• Variable frequency drives (VFD) for controlled pump shutdown\n"
-    "• Surge control devices (if fast closure cannot be avoided)"
-)
-
-st.markdown("---")
-
-# ----------------------------------
-# DESIGN INSIGHT
-# ----------------------------------
-st.subheader("6. Key Design Insight")
-
-st.write(
-    "Flow stopping time is one of the most effective parameters engineers can control to reduce surge pressure. "
-    "Increasing closure time is often the first and simplest method to improve system safety."
-)
-
-st.success(
-    "✅ Design Rule: Always aim for controlled and gradual flow reduction to minimize transient effects."
-)
-
-st.markdown("---")
-
-# ----------------------------------
-# DESIGN GUIDELINES
-# ----------------------------------
-st.header("📘 Design Guidelines (HI / BS EN / SSG)")
-
-st.info(
-    "Based on general engineering practices from Hydraulic Institute (HI), "
-    "BS EN standards, and SSG (UK water industry guidance)."
-)
-
-# -------------------------------
-# TRANSIENT PRESSURE LIMITS
-# -------------------------------
-st.subheader("Transient Pressure Limits")
-
-st.markdown("""
+    st.markdown("""
 • Transient pressure shall not exceed allowable pipe pressure  
 • Consider both positive surge and negative pressure  
 • Maximum pressure = steady pressure + transient pressure  
 • Safety margin must be included in design  
 """)
 
-# -------------------------------
-# CONTROL OF FLOW CHANGE
-# -------------------------------
-st.subheader("Control of Sudden Flow Changes")
+    st.subheader("Control of Sudden Flow Changes")
 
-st.markdown("""
+    st.markdown("""
 • Sudden velocity changes must be avoided  
 • Rapid valve closure should be minimized  
 • Pump start/stop should be controlled  
 • Slower closure → lower surge pressure  
 """)
 
-# -------------------------------
-# SURGE PROTECTION
-# -------------------------------
-st.subheader("Surge Protection Requirements")
+    st.subheader("Surge Protection Requirements")
 
-st.markdown("""
+    st.markdown("""
 • Surge protection devices shall be used if pressure exceeds limits  
 • Required for long pipelines and high head systems  
 • Typical devices include:  
@@ -493,47 +288,35 @@ st.markdown("""
     • Surge anticipation valve  
 """)
 
-# -------------------------------
-# AIR & VACUUM PROTECTION
-# -------------------------------
-st.subheader("Air & Vacuum Protection")
+    st.subheader("Air & Vacuum Protection")
 
-st.markdown("""
+    st.markdown("""
 • Negative pressure conditions must be prevented  
 • Air valves shall be installed at high points  
 • Vacuum breakers required for long pipelines  
 • Prevent column separation and pipe collapse  
 """)
 
-# -------------------------------
-# CHECK VALVE SELECTION
-# -------------------------------
-st.subheader("Check Valve (NRV) Selection")
+    st.subheader("Check Valve (NRV) Selection")
 
-st.markdown("""
+    st.markdown("""
 • Sudden valve closure must be avoided  
 • Non-slam check valves are recommended  
 • Reduce reverse flow impact and pressure spikes  
 """)
 
-# -------------------------------
-# VELOCITY CONTROL
-# -------------------------------
-st.subheader("Velocity Control")
+    st.subheader("Velocity Control")
 
-st.markdown("""
+    st.markdown("""
 • Flow velocity should be controlled within limits  
 • Recommended range: 0.7 – 2.5 m/s  
 • Higher velocity → higher surge pressure  
 • Lower velocity improves system safety  
 """)
 
-# -------------------------------
-# TRANSIENT DESIGN CONSIDERATION
-# -------------------------------
-st.subheader("Transient Design Consideration")
+    st.subheader("Transient Design Consideration")
 
-st.markdown("""
+    st.markdown("""
 • Transient conditions must be considered in design  
 • Steady-state analysis alone is not sufficient  
 • Critical cases to evaluate:  
