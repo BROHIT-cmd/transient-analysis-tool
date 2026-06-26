@@ -177,7 +177,7 @@ with tab1:
 with tab2:
 
     # ----------------------------------
-    # THEORY
+    # THEORY (ENHANCED)
     # ----------------------------------
     st.header("📚 Transient Theory (Detailed Explanation)")
 
@@ -185,54 +185,127 @@ with tab2:
 
     st.write(
         "Transient flow, commonly known as water hammer, occurs when there is a sudden change "
-        "in flow conditions within a pipeline system. This change may happen due to valve closure, "
-        "pump shutdown, or any rapid variation in velocity."
+        "in flow conditions within a pipeline system such as rapid valve closure, pump shutdown, "
+        "or sudden change in operating conditions."
     )
 
     st.write(
-        "When flowing water is suddenly slowed down or stopped, the momentum of the fluid is converted "
-        "into pressure energy. This results in a rapid rise in pressure, creating a wave that travels "
-        "through the pipeline."
+        "Under normal steady-state operation, flow velocity and pressure remain constant. "
+        "However, when a disturbance occurs, the fluid experiences a rapid change in momentum, "
+        "resulting in the formation of pressure waves."
     )
 
-    st.write("👉 In simple terms: **Change in velocity → Pressure wave → System response**")
+    st.write(
+        "These pressure waves travel along the pipeline, reflect at boundaries such as valves, "
+        "tanks, and reservoirs, and create oscillating pressure conditions within the system."
+    )
+
+    st.write(
+        "👉 In simple terms: **Change in velocity → Momentum change → Pressure wave → System response**"
+    )
+
+    st.markdown("---")
+
+    st.subheader("2. How Pressure Waves Travel")
+
+    st.write(
+        "When the flow is suddenly disturbed, a high-pressure wave is generated and travels along "
+        "the pipeline at a finite speed called wave speed."
+    )
+
+    st.write(
+        "The wave continues to travel until it reaches a boundary, where it reflects back into the system. "
+        "This repeated reflection creates oscillations in pressure inside the pipe."
+    )
+
+    st.write(
+        "Over time, these oscillations reduce due to friction and energy losses, bringing the system "
+        "back to steady-state conditions."
+    )
+
+    st.markdown("---")
+
+    st.subheader("3. Wave Speed (a)")
+
+    st.latex(r"a = \sqrt{\frac{K}{\rho \left(1 + \frac{K D}{E t} \right)}}")
+
+    st.write(
+        "Wave speed represents how fast the pressure disturbance propagates through the pipeline."
+    )
+
+    st.write(
+        "It depends on both fluid properties (compressibility) and pipe properties (elasticity and thickness)."
+    )
+
+    st.write(
+        "👉 Higher stiffness (metal pipes) → higher wave speed → higher surge pressure\n"
+        "👉 Flexible pipes (HDPE) → lower wave speed → reduced surge effect"
+    )
+
+    st.markdown("---")
+
+    st.subheader("4. Surge Pressure Development")
+
+    st.latex(r"\Delta P = \frac{\rho L V}{t}")
+
+    st.write(
+        "Surge pressure is generated due to the change in velocity of the fluid. "
+        "The magnitude of surge pressure depends on pipeline length, flow velocity, and stopping time."
+    )
+
+    st.write(
+        "👉 Higher velocity → higher momentum → higher surge pressure\n"
+        "👉 Short stopping time → rapid deceleration → higher surge\n"
+        "👉 Longer pipelines → greater pressure build-up"
+    )
 
     st.markdown("---")
 
     # ----------------------------------
-    # FLOW STOPPING TIME
+    # FLOW STOPPING TIME (ENHANCED)
     # ----------------------------------
     st.subheader("⏱️ Flow Stopping Time (Valve Closure / Pump Trip)")
 
     st.write(
-        "Flow stopping time represents the duration over which the fluid velocity reduces from its initial value "
-        "to zero. This may occur due to valve closing or pump shutdown."
+        "Flow stopping time is the time required for the fluid velocity to reduce from its operating value "
+        "to zero due to valve closure or pump shutdown."
     )
+
+    st.write(
+        "This is one of the most critical parameters in transient analysis because it directly controls "
+        "the magnitude of pressure surge generated in the system."
+    )
+
+    st.markdown("---")
 
     st.subheader("1. Why is Flow Stopping Time Important?")
 
     st.write(
-        "Flow stopping time directly controls the magnitude of transient pressure. "
-        "A rapid reduction in flow causes a sudden change in momentum, resulting in high pressure surge."
+        "When flow is stopped suddenly, the fluid momentum is converted into pressure energy almost instantly, "
+        "resulting in a sharp rise in pressure."
     )
 
     st.write(
-        "👉 Short time (fast closure) → large surge pressure\n"
-        "👉 Long time (slow closure) → smaller surge pressure"
+        "If the stopping process is gradual, the energy is released slowly, reducing the magnitude of surge pressure."
     )
+
+    st.markdown("""
+👉 Short time (fast closure) → **Very high surge pressure**  
+👉 Long time (slow closure) → **Reduced and controlled pressure rise**  
+""")
 
     st.markdown("---")
 
     st.subheader("2. Physical Understanding")
 
     st.write(
-        "Fluid flowing in a pipe has momentum. When flow is stopped, this momentum must be dissipated. "
-        "If the stopping occurs quickly, the energy converts into pressure almost instantly, "
-        "creating a high pressure wave."
+        "Fluid flowing inside a pipeline possesses kinetic energy. When the flow is interrupted, "
+        "this energy needs to be dissipated."
     )
 
     st.write(
-        "If the stopping is gradual, the energy is released slowly, resulting in a lower pressure rise."
+        "Rapid stopping forces the energy to convert into pressure instantly, creating a strong pressure wave. "
+        "Gradual stopping distributes this energy over time, reducing peak pressure."
     )
 
     st.markdown("---")
@@ -242,11 +315,41 @@ with tab2:
     st.latex(r"t_c = \frac{2L}{a}")
 
     st.write(
-        "👉 If closure time is LESS than critical time → high surge (rapid event)\n"
-        "👉 If closure time is GREATER than critical time → reduced surge (gradual event)"
+        "Critical time represents the time taken for a pressure wave to travel to the end of the pipeline "
+        "and return back."
     )
 
+    st.markdown("""
+• If stopping time < critical time → rapid event (high surge)  
+• If stopping time > critical time → gradual event (lower surge)  
+""")
+
     st.markdown("---")
+
+    st.subheader("4. Practical Engineering Cases")
+
+    st.markdown("""
+• Manual valve operation → usually slower (less critical)  
+• Motorized / automatic valves → faster, requires control  
+• Pump trip (power failure) → very fast, often worst-case condition  
+""")
+
+    st.markdown("---")
+
+    st.subheader("5. Methods to Control Stopping Time")
+
+    st.markdown("""
+• Use slow-closing valves  
+• Use actuators with controlled closing speed  
+• Provide VFD for controlled pump shutdown  
+• Install surge protection if fast closure cannot be avoided  
+""")
+
+    st.markdown("---")
+
+    st.subheader("6. Engineering Insight")
+
+    st.write(
 
     # ----------------------------------
     # DESIGN GUIDELINES
