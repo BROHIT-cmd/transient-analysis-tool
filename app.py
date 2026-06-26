@@ -349,7 +349,7 @@ with tab2:
 
     st.subheader("6. Engineering Insight")
 
-    st.write(
+   
 
     # ----------------------------------
     # DESIGN GUIDELINES
