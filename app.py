@@ -71,6 +71,7 @@ with tab1:
         deltaP = rho * L * V / t_stop
         deltaP_bar = deltaP / 1e5
         head = deltaP / (rho * 9.81)
+        ratio = deltaP_bar / allowable
 
         ratio = deltaP_bar / allowable
 
