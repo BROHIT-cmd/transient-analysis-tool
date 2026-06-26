@@ -15,7 +15,35 @@ col1, col2 = st.columns([6, 1])
 
 with col1:
     st.title("Pipeline Transient Analysis & Design Tool")
+st.markdown("""
+### 📘 About This Tool
 
+The **Pipeline Transient Analysis & Design Tool** is developed to help engineers understand 
+and evaluate pressure surge (water hammer) effects in pipeline systems during transient events 
+such as valve closure and pump shutdown.
+
+This tool performs simplified transient calculations based on fundamental hydraulic principles 
+and provides quick insights into system behavior under varying operating conditions.
+
+### 🔧 Key Features
+
+• Calculates wave speed based on fluid and pipe properties  
+• Estimates surge pressure considering flow conditions and stopping time  
+• Evaluates system safety using pressure ratio and risk classification  
+• Visualizes pressure response through Pressure vs Time graph  
+• Provides engineering interpretation and system impact assessment  
+
+### 🎯 Purpose
+
+The main objective of this tool is to support **preliminary design evaluation**, 
+**risk identification**, and **engineering decision-making** in pipeline systems, 
+in accordance with common industry practices.
+
+### ⚠️ Note
+
+This is a **simplified analytical tool** intended for conceptual and preliminary design.  
+Detailed transient analysis may require advanced simulation software and system-specific modeling.
+""")
 with col2:
     logo = os.path.join("images", "logo.png")
     if os.path.exists(logo):
