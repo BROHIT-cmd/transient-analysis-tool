@@ -38,8 +38,7 @@ in accordance with common industry practices.
 
 ### ⚠️ Note
 
-This is a **simplified analytical tool** intended for conceptual and preliminary design.  
-Detailed transient analysis may require advanced simulation software and system-specific modeling.
+This is a **simplified analytical tool** intended for conceptual and preliminary design. Detailed transient analysis may require advanced simulation software and system-specific modeling.
 """)
 
 
