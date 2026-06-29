@@ -162,7 +162,36 @@ Material affects wave speed and surge pressure.
 
             if t_stop < t_critical:
                     st.warning("⚠ Stopping time too short → high surge risk")
+        # RIGHT PANEL
+with col2:
+    st.header("Transient Pressure vs Time")
 
+    time = np.linspace(0, 2, 100)
+    pressure = deltaP_bar * np.exp(-2 * time) * np.cos(10 * time)
+
+    fig, ax = plt.subplots()
+
+    # 🔵 Transient pressure
+    ax.plot(time, pressure, color='blue', linewidth=2, label="Transient Pressure")
+
+    # 🔴 Allowable pressure
+    ax.axhline(y=allowable, color='red', linestyle='--', linewidth=2, label="Allowable Pressure")
+
+    # ✅ Labels
+    ax.set_xlabel("Time (s)")
+    ax.set_ylabel("Pressure (bar)")
+
+    # ✅ Title (optional but recommended)
+    ax.set_title("Transient Pressure Response")
+
+    # ✅ Legend
+    ax.legend()
+
+    # ✅ Grid
+    ax.grid()
+
+    st.pyplot(fig)
+    
             # ✅ RISK
             st.header("Risk Assessment")
 
@@ -174,6 +203,8 @@ Material affects wave speed and surge pressure.
                 st.info("🟢 Moderate – Review recommended")
             else:
                 st.success("✅ Safe")
+
+            
 
             # ✅ IMPACT (DYNAMIC)
             st.header("Impact on System")
