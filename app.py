@@ -204,11 +204,9 @@ with tab2:
         "The magnitude of surge pressure depends on pipeline length, flow velocity, stopping time and elevation difference."
     )
 
-    st.write(
-        "👉 Higher velocity → higher momentum → higher surge pressure\n"
-        "👉 Short stopping time → rapid deceleration → higher surge\n"
-        "👉 Longer pipelines → greater pressure build-up"
-    )
+    st.write("👉 Higher velocity → higher momentum → higher surge pressure")
+    st.write("👉 Short stopping time → rapid deceleration → higher surge")
+    st.write("👉 Longer pipelines → greater pressure build-up")
 
     st.markdown("---")
 
