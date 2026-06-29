@@ -105,21 +105,22 @@ if run:
     deltaP_bar = deltaP / 1e5
     head = deltaP / (rho * 9.81)
 
-    # ✅ Static pressure due to elevation
+    # ✅ Static pressure (CORRECTLY INSIDE)
     static_pressure = rho * 9.81 * H
     static_bar = static_pressure / 1e5
 
     # ✅ Total pressure
     total_pressure = deltaP_bar + static_bar
 
-    # ✅ Correct ratio
+    # ✅ Ratio
     ratio = total_pressure / allowable
 
+    # ✅ Columns
     col1, col2 = st.columns([2, 1])
 
-        # ---------------- LEFT PANEL ----------------
-        with col1:
-            st.header("Results")
+    # ✅ NO EXTRA INDENT HERE
+    with col1:
+        st.header("Results")
 
             st.write(f"Wave Speed: {a:.2f} m/s")
             st.write(f"Surge Pressure: {deltaP_bar:.2f} bar")
