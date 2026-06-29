@@ -61,17 +61,28 @@ with tab1:
 
     colA, colB = st.columns(2)
 
+    # ✅ LEFT COLUMN (Geometry + Elevation)
     with colA:
         L = st.number_input("Pipe Length (m)", value=5.0, help="Total pipeline length")
+
         D = st.number_input("Pipe Diameter (mm)", value=25.0, help="Internal pipe diameter") / 1000
+
         t_pipe = st.number_input("Pipe Thickness (mm)", value=2.0, help="Pipe wall thickness") / 1000
 
+        H = st.number_input(
+            "Elevation Difference (m)",
+            value=0.0,
+            help="(+ve → pipe goes upward, -ve → pipe goes downward)"
+        )
+
+    # ✅ RIGHT COLUMN (Flow + Limits)
     with colB:
         V = st.number_input("Flow Velocity (m/s)", value=2.0, help="Higher velocity increases surge pressure")
+
         t_stop = st.number_input(
-    "Flow Stopping Time (sec)",
-    value=3.0,
-    help="""
+            "Flow Stopping Time (sec)",
+            value=3.0,
+            help="""
 How fast the flow stops.
 
 • Fast stop → high surge (danger)  
@@ -80,7 +91,7 @@ How fast the flow stops.
 ✅ Recommended:
 • Keep stopping time greater than critical time (2L/a)
 
-Where:\n
+Where:
 • L = pipeline length  
 • a = wave speed (speed of pressure wave in pipe)
 
@@ -88,26 +99,28 @@ Where:\n
 
 ⚠ Very fast stopping (< 1 sec) = high risk
 """
-)
-        allowable = st.number_input("Allowable Pressure (bar)", value=10.0, help="Maximum safe pressure")
-
-        H = st.number_input(
-            "Elevation Difference (m)",
-            value=0.0,
-            help="(+ve → pipe goes upward, -ve → pipe goes downward)"
         )
 
+        allowable = st.number_input(
+            "Allowable Pressure (bar)",
+            value=10.0,
+            help="Maximum safe pressure"
+        )
+
+        material = st.selectbox("Material", ["DI", "MS", "HDPE"])
+
+    # ✅ MATERIAL DATA
     materials = {
         "DI": {"E": 1.7e11, "rho": 1000, "K": 2.2e9},
         "MS": {"E": 2.0e11, "rho": 1000, "K": 2.2e9},
         "HDPE": {"E": 1.0e9, "rho": 1000, "K": 2.2e9},
     }
 
-    material = st.selectbox("Material", list(materials.keys()))
     mat = materials[material]
     E, rho, K = mat["E"], mat["rho"], mat["K"]
 
     run = st.button("▶ Run Analysis")
+
 
     if run:
 
