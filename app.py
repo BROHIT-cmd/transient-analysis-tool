@@ -108,12 +108,12 @@ with tab1:
             st.header("Transient Pressure vs Time")
 
             time = np.linspace(0, 2, 100)
-            Transient pressure = deltaP_bar * np.exp(-2 * time) * np.cos(10 * time)
+            Transient_pressure = deltaP_bar * np.exp(-2 * time) * np.cos(10 * time)
 
             fig, ax = plt.subplots()
-            ax.plot(time, Transient pressure)
+            ax.plot(time, Transient_pressure)
             ax.set_xlabel("Time (s)")
-            ax.set_ylabel("Transient pressure (bar)")
+            ax.set_ylabel("Transient_pressure (bar)")
             ax.grid()
 
             st.pyplot(fig)
