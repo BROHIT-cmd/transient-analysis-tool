@@ -145,7 +145,7 @@ with col1:
 
     # ✅ Critical warning
     if t_stop < t_critical:
-        st.warning("⚠ Stopping time too short → high surge risk")
+    st.warning("⚠ Stopping time too short → high surge risk")
 
     # ✅ RISK (✅ MUST BE INSIDE col1)
     st.header("Risk Assessment")
