@@ -322,7 +322,7 @@ with open(pdf_file, "rb") as f:
     )
 
 else:
-    st.info("Click Run Analysis to generate report")
+    st.info("Click here generate report")
 
 # ==================================
 # ✅ TAB 2 - THEORY
