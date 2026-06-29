@@ -75,7 +75,11 @@ with tab1:
         V = st.number_input("Flow Velocity (m/s)", value=2.0, help="Higher velocity increases surge pressure")
         t_stop = st.number_input("Flow Stopping Time (sec)", value=3.0, help="Valve closure or pump trip time")
         allowable = st.number_input("Allowable Pressure (bar)", value=10.0, help="Maximum safe pressure")
-        H = st.number_input("Elevation Difference (m)", value=0.0, help="(+ve = rising pipe, -ve = falling
+        H = st.number_input(
+    "Elevation Difference (m)", 
+    value=0.0, 
+    help="(+ve = rising pipe, -ve = falling pipe)"
+)
 
     # MATERIAL
     materials = {
