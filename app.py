@@ -334,7 +334,7 @@ if run:
     # ✅ RIGHT PANEL (GRAPH)
     # =========================
     with col2:
-        st.header("Transient Pressure vs Time")
+        st.header("Transient Pressure vs Time", loc='center')
 
         time = np.linspace(0, 2, 100)
         pressure = deltaP_bar * np.exp(-2 * time) * np.cos(10 * time)
