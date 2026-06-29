@@ -1,3 +1,4 @@
+# Pipeline Transient Analysis & Design Tool
 
 import streamlit as st
 import numpy as np
@@ -41,7 +42,6 @@ in accordance with common industry practices.
 This is a **simplified analytical tool** intended for conceptual and preliminary design. Detailed transient analysis may require advanced simulation software and system-specific modeling.
 """)
 
-
 with col2:
     logo = os.path.join("images", "logo.png")
     if os.path.exists(logo):
@@ -52,8 +52,7 @@ st.markdown("---")
 # TABS
 tab1, tab2 = st.tabs(["🔧 Pipeline Transient Analysis Tool", "📚 Theory & Guidelines"])
 
-# ==================================
-# TAB 1
+# TAB 1 - ANALYSIS
 # ==================================
 with tab1:
 
@@ -129,7 +128,7 @@ Material affects wave speed and surge pressure.
 
     run = st.button("▶ Run Analysis")
 
-
+# ==================================
     if run:
 
         # CALCULATIONS
@@ -160,38 +159,11 @@ Material affects wave speed and surge pressure.
             t_critical = 2 * L / a
             st.write(f"Critical Time: {t_critical:.2f} sec")
 
+            
+         # ✅ Critical warning
             if t_stop < t_critical:
-                    st.warning("⚠ Stopping time too short → high surge risk")
-        # RIGHT PANEL
-with col2:
-    st.header("Transient Pressure vs Time")
-
-    time = np.linspace(0, 2, 100)
-    pressure = deltaP_bar * np.exp(-2 * time) * np.cos(10 * time)
-
-    fig, ax = plt.subplots()
-
-    # 🔵 Transient pressure
-    ax.plot(time, pressure, color='blue', linewidth=2, label="Transient Pressure")
-
-    # 🔴 Allowable pressure
-    ax.axhline(y=allowable, color='red', linestyle='--', linewidth=2, label="Allowable Pressure")
-
-    # ✅ Labels
-    ax.set_xlabel("Time (s)")
-    ax.set_ylabel("Pressure (bar)")
-
-    # ✅ Title (optional but recommended)
-    ax.set_title("Transient Pressure Response")
-
-    # ✅ Legend
-    ax.legend()
-
-    # ✅ Grid
-    ax.grid()
-
-    st.pyplot(fig)
-    
+                st.warning("⚠ Stopping time too short → high surge risk")
+ 
             # ✅ RISK
     st.header("Risk Assessment")
 
@@ -239,6 +211,39 @@ with col2:
 • Safe condition  
 • Stable operation  
 """)
+        # RIGHT PANEL
+with col2:
+    st.header("Transient Pressure vs Time")
+
+    time = np.linspace(0, 2, 100)
+    pressure = deltaP_bar * np.exp(-2 * time) * np.cos(10 * time)
+
+    fig, ax = plt.subplots()
+
+    # 🔵 Transient pressure
+    ax.plot(time, pressure, color='blue', linewidth=2, label="Transient Pressure")
+
+    # 🔴 Allowable pressure
+    ax.axhline(y=allowable, color='red', linestyle='--', linewidth=2, label="Allowable Pressure")
+
+    # ✅ Labels
+    ax.set_xlabel("Time (s)")
+    ax.set_ylabel("Pressure (bar)")
+
+    # ✅ Title (optional but recommended)
+    ax.set_title("Transient Pressure Response")
+
+    # ✅ Legend
+    ax.legend()
+
+    # ✅ Grid
+    ax.grid()
+
+    st.pyplot(fig)
+
+
+    else:
+        st.info("Click Run Analysis to generate results")
 
 # ==================================
 # ✅ TAB 2 - THEORY
