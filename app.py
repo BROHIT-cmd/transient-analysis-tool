@@ -94,7 +94,7 @@ Where:
         H = st.number_input(
             "Elevation Difference (m)",
             value=0.0,
-            help="(+ve = rising pipe, -ve = falling pipe)"
+            help="(+ve → pipe goes upward, -ve → pipe goes downward)"
         )
 
     materials = {
