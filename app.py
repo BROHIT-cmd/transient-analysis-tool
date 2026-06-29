@@ -128,10 +128,30 @@ Material affects wave speed and surge pressure.
 
     run = st.button("▶ Run Analysis")
 
-# ==================================
-# LEFT PANEL
+#==================================
+
 if run:
-    with col1:
+
+    # CALCULATIONS
+    a = np.sqrt(K / (rho * (1 + (K * D) / (E * t_pipe))))
+    deltaP = rho * L * V / t_stop
+    deltaP_bar = deltaP / 1e5
+    head = deltaP / (rho * 9.81)
+
+    static_pressure = rho * 9.81 * H
+    static_bar = static_pressure / 1e5
+
+    total_pressure = deltaP_bar + static_bar
+    ratio = total_pressure / allowable
+
+    t_critical = 2 * L / a
+
+   
+    col1, col2 = st.columns([2, 1])
+
+
+# LEFT PANEL
+with col1:
     st.header("Results")
 
     st.write(f"Wave Speed: {a:.2f} m/s")
