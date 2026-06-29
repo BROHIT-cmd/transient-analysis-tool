@@ -126,7 +126,7 @@ Material affects wave speed and surge pressure.
     mat = materials[material]
     E, rho, K = mat["E"], mat["rho"], mat["K"]
 
-run = st.button("▶ Run Analysis", Key="run_analysis")
+run = st.button("▶ Run Analysis", key="run_analysis")
 
 if run:
 
