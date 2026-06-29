@@ -151,52 +151,51 @@ if run:
 
 
 # LEFT PANEL
-with col1:
-    st.header("Results")
 
-    st.write(f"Wave Speed: {a:.2f} m/s")
-    st.write(f"Surge Pressure: {deltaP_bar:.2f} bar")
-    st.write(f"Head Rise: {head:.2f} m")
-    st.write(f"Static Pressure: {static_bar:.2f} bar")
-    st.write(f"Total Pressure: {total_pressure:.2f} bar")
-    st.write(f"Pressure Ratio: {ratio:.2f}")
+if run:
+
+    # ✅ CALCULATIONS
+    a = np.sqrt(K / (rho * (1 + (K * D) / (E * t_pipe))))
+    deltaP = rho * L * V / t_stop
+    deltaP_bar = deltaP / 1e5
+    head = deltaP / (rho * 9.81)
+
+    static_bar = (rho * 9.81 * H) / 1e5
+    total_pressure = deltaP_bar + static_bar
+    ratio = total_pressure / allowable
 
     t_critical = 2 * L / a
-    st.write(f"Critical Time: {t_critical:.2f} sec")
 
-    # ✅ Critical warning
-    if t_stop < t_critical:
-        st.warning("⚠ Stopping time too short → high surge risk")
+    # ✅ CREATE COLUMNS HERE (INSIDE if run)
+    col1, col2 = st.columns([2, 1])
 
-    # ✅ RISK (✅ MUST BE INSIDE col1)
-    st.header("Risk Assessment")
+    # ✅ LEFT PANEL (INSIDE if run)
+    with col1:
+        st.header("Results")
 
-    if ratio > 1.5:
-        st.error("🔴 Critical – Exceeds safe limit")
-    elif ratio > 1.0:
-        st.warning("🟡 High – Needs mitigation")
-    elif ratio > 0.7:
-        st.info("🟢 Moderate – Review recommended")
-    else:
-        st.success("✅ Safe")            
-         # ✅ Critical warning
-    if t_stop < t_critical:
-        st.warning("⚠ Stopping time too short → high surge risk")
- 
-            # ✅ RISK
-    st.header("Risk Assessment")
-    
-    if ratio > 1.5:
-        st.error("🔴 Critical – Exceeds safe limit")
-    elif ratio > 1.0:
-        st.warning("🟡 High – Needs mitigation")
-    elif ratio > 0.7:
-        st.info("🟢 Moderate – Review recommended")
-    else:
-        st.success("✅ Safe")
+        st.write(f"Wave Speed: {a:.2f} m/s")
+        st.write(f"Surge Pressure: {deltaP_bar:.2f} bar")
+        st.write(f"Head Rise: {head:.2f} m")
+        st.write(f"Static Pressure: {static_bar:.2f} bar")
+        st.write(f"Total Pressure: {total_pressure:.2f} bar")
+        st.write(f"Pressure Ratio: {ratio:.2f}")
 
-            
+        st.write(f"Critical Time: {t_critical:.2f} sec")
 
+        if t_stop < t_critical:
+            st.warning("⚠ Stopping time too short → high surge risk")
+
+        st.header("Risk Assessment")
+
+        if ratio > 1.5:
+            st.error("🔴 Critical")
+        elif ratio > 1.0:
+            st.warning("🟡 High")
+        elif ratio > 0.7:
+            st.info("🟢 Moderate")
+        else:
+            st.success("✅ Safe")
+         
     # ✅ IMPACT (DYNAMIC)
     st.header("Impact on System")
 
