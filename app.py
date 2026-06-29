@@ -75,6 +75,7 @@ with tab1:
         V = st.number_input("Flow Velocity (m/s)", value=2.0, help="Higher velocity increases surge pressure")
         t_stop = st.number_input("Flow Stopping Time (sec)", value=3.0, help="Valve closure or pump trip time")
         allowable = st.number_input("Allowable Pressure (bar)", value=10.0, help="Maximum safe pressure")
+        H = st.number_input("Elevation Difference (m)", value=0.0, help="(+ve = rising pipe, -ve = falling
 
     # MATERIAL
     materials = {
@@ -99,11 +100,17 @@ with tab1:
         deltaP = rho * L * V / t_stop
         deltaP_bar = deltaP / 1e5
         head = deltaP / (rho * 9.81)
-        ratio = deltaP_bar / allowable
+        ratio = total_pressure / allowable
 
-        ratio = deltaP_bar / allowable
+        ratio = total_pressure / allowable
 
         col1, col2 = st.columns([2, 1])
+        # Static pressure due to elevation
+static_pressure = rho * 9.81 * H
+static_bar = static_pressure / 1e5
+
+# Total pressure (Transient + Static)
+total_pressure = total_pressure
 
         # ---------------- LEFT PANEL ----------------
         with col1:
@@ -112,6 +119,8 @@ with tab1:
             st.write(f"Wave Speed: {a:.2f} m/s")
             st.write(f"Surge Pressure: {deltaP_bar:.2f} bar")
             st.write(f"Head Rise: {head:.2f} m")
+            st.write(f"Static Pressure: {static_bar:.2f} bar")
+            st.write(f"Total Pressure: {total_pressure:.2f} bar")
 
             # RISK
             st.header("Risk Assessment")
