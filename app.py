@@ -155,7 +155,11 @@ Material affects wave speed and surge pressure.
             st.write(f"Head Rise: {head:.2f} m")
             st.write(f"Static Pressure: {static_bar:.2f} bar")
             st.write(f"Total Pressure: {total_pressure:.2f} bar")
-
+            st.write(f"Pressure Ratio: {ratio:.2f}")
+            t_critical = 2 * L / a
+            st.write(f"Critical Time: {t_critical:.2f} sec")
+            if t_stop < t_critical:
+            st.warning("⚠ Stopping time too short → high surge risk")
 
             # ✅ RISK
             st.header("Risk Assessment")
@@ -212,6 +216,7 @@ Material affects wave speed and surge pressure.
 
             fig, ax = plt.subplots()
             ax.plot(time, Transient_pressure)
+            ax.axhline(y=allowable, color='r', linestyle='--')
             ax.set_xlabel("Time (s)")
             ax.set_ylabel("Transient_pressure (bar)")
             ax.grid()
