@@ -156,79 +156,8 @@ Material affects wave speed and surge pressure.
             st.write(f"Static Pressure: {static_bar:.2f} bar")
             st.write(f"Total Pressure: {total_pressure:.2f} bar")
 
-            # ---------------- IMPACT ----------------
-st.header("Impact on System")
 
-# 🔴 CRITICAL
-if ratio > 1.5:
-    st.error("🔴 Severe Impact on System")
-
-    st.markdown("""
-**Structural / Mechanical:**
-• High risk of pipe rupture or bursting  
-• Failure of joints, fittings, and supports  
-
-**Hydraulic:**
-• Extreme pressure surge and oscillations  
-• Possible column separation and vacuum formation  
-
-**Operational:**
-• System failure or shutdown likely  
-• Immediate protection required  
-""")
-
-# 🟡 HIGH
-elif ratio > 1.0:
-    st.warning("🟡 High Impact on System")
-
-    st.markdown("""
-**Structural / Mechanical:**
-• High stress in pipeline and components  
-• Risk of leakage or fatigue failure  
-
-**Hydraulic:**
-• Large pressure fluctuations  
-• Unsteady flow conditions  
-
-**Operational:**
-• Reduced system reliability  
-• Surge protection recommended  
-""")
-
-# 🟢 MODERATE
-elif ratio > 0.7:
-    st.info("🟢 Moderate Impact on System")
-
-    st.markdown("""
-**Structural / Mechanical:**
-• Moderate stress in pipeline  
-
-**Hydraulic:**
-• Minor pressure variations  
-• Generally stable flow  
-
-**Operational:**
-• Acceptable performance  
-• Review for safety margin  
-""")
-
-# ✅ SAFE
-else:
-    st.success("✅ Minimal Impact on System")
-
-    st.markdown("""
-**Structural / Mechanical:**
-• No significant stress  
-
-**Hydraulic:**
-• Stable pressure conditions  
-
-**Operational:**
-• System operating safely  
-• No action required  
-""")
-
-
+            # ✅ RISK
             st.header("Risk Assessment")
 
             if ratio > 1.5:
@@ -239,6 +168,40 @@ else:
                 st.info("🟢 Moderate – Review recommended")
             else:
                 st.success("✅ Safe")
+
+            # ✅ IMPACT (DYNAMIC)
+            st.header("Impact on System")
+
+            if ratio > 1.5:
+                st.error("🔴 Severe Impact")
+                st.markdown("""
+• Pipe burst / failure likely  
+• Extreme pressure surge  
+• System shutdown risk  
+""")
+
+            elif ratio > 1.0:
+                st.warning("🟡 High Impact")
+                st.markdown("""
+• High stress in pipeline  
+• Pressure fluctuations  
+• Reliability issues  
+""")
+
+            elif ratio > 0.7:
+                st.info("🟢 Moderate Impact")
+                st.markdown("""
+• Moderate stress  
+• Minor fluctuations  
+• Review recommended  
+""")
+
+            else:
+                st.success("✅ Minimal Impact")
+                st.markdown("""
+• Safe condition  
+• Stable operation  
+""")
 
         # RIGHT PANEL
         with col2:
@@ -257,77 +220,6 @@ else:
 
     else:
         st.info("Click Run Analysis to generate graph")
-# ---------------- IMPACT ----------------
-st.header("Impact on System")
-
-# 🔴 CRITICAL
-if ratio > 1.5:
-    st.error("🔴 Severe Impact on System")
-
-    st.markdown("""
-**Structural / Mechanical:**
-• High risk of pipe rupture or burst  
-• Failure of joints, fittings, and supports  
-
-**Hydraulic:**
-• Extreme pressure surge and oscillations  
-• Possible column separation and vacuum formation  
-
-**Operational:**
-• System failure / shutdown likely  
-• Immediate protection required  
-""")
-
-# 🟡 HIGH
-elif ratio > 1.0:
-    st.warning("🟡 High Impact on System")
-
-    st.markdown("""
-**Structural / Mechanical:**
-• Significant stress in pipeline and components  
-• Risk of leakage or damage  
-
-**Hydraulic:**
-• Noticeable pressure fluctuations  
-• Risk of transient instability  
-
-**Operational:**
-• Reduced system reliability  
-• Surge protection recommended  
-""")
-
-# 🟢 MODERATE
-elif ratio > 0.7:
-    st.info("🟢 Moderate Impact on System")
-
-    st.markdown("""
-**Structural / Mechanical:**
-• Moderate stress levels in pipeline  
-
-**Hydraulic:**
-• Minor pressure fluctuations  
-
-**Operational:**
-• System generally stable  
-• Review conditions for safety margin  
-""")
-
-# ✅ SAFE
-else:
-    st.success("✅ Minimal Impact on System")
-
-    st.markdown("""
-**Structural / Mechanical:**
-• No significant stress on pipeline  
-
-**Hydraulic:**
-• Stable flow conditions  
-
-**Operational:**
-• System operating safely  
-• No action required  
-""")
-
 # ==================================
 # ✅ TAB 2 - THEORY
 # ==================================
