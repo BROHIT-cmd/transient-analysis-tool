@@ -1,49 +1,24 @@
+
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-# ----------------------------------
 # PAGE CONFIG
-# ----------------------------------
 st.set_page_config(layout="wide")
 
-# ----------------------------------
 # HEADER
-# ----------------------------------
 col1, col2 = st.columns([6, 1])
 
 with col1:
     st.title("Pipeline Transient Analysis & Design Tool")
+
 st.markdown("""
 ### 📘 About This Tool
-
 The **Pipeline Transient Analysis & Design Tool** is developed to help engineers understand 
-and evaluate pressure surge (water hammer) effects in pipeline systems during transient events 
-such as valve closure and pump shutdown.
-
-This tool performs simplified transient calculations based on fundamental hydraulic principles 
-and provides quick insights into system behavior under varying operating conditions.
-
-### 🔧 Key Features
-
-• Calculates wave speed based on fluid and pipe properties  
-• Estimates surge pressure considering flow conditions and stopping time  
-• Evaluates system safety using pressure ratio and risk classification  
-• Visualizes pressure response through Pressure vs Time graph  
-• Provides engineering interpretation and system impact assessment  
-
-### 🎯 Purpose
-
-The main objective of this tool is to support **preliminary design evaluation**, 
-**risk identification**, and **engineering decision-making** in pipeline systems, 
-in accordance with common industry practices.
-
-### ⚠️ Note
-
-This is a **simplified analytical tool** intended for conceptual and preliminary design.  
-Detailed transient analysis may require advanced simulation software and system-specific modeling.
+and evaluate pressure surge (water hammer) effects in pipeline systems.
 """)
+
 with col2:
     logo = os.path.join("images", "logo.png")
     if os.path.exists(logo):
@@ -51,37 +26,34 @@ with col2:
 
 st.markdown("---")
 
-# ----------------------------------
 # TABS
-# ----------------------------------
 tab1, tab2 = st.tabs(["🔧 Analysis Tool", "📚 Theory & Guidelines"])
 
 # ==================================
-# ✅ TAB 1 - ANALYSIS
+# TAB 1
 # ==================================
 with tab1:
 
-    # INPUTS
     st.subheader("Input Data")
 
     colA, colB = st.columns(2)
 
     with colA:
-        L = st.number_input("Pipe Length (m)", value=5.0, help="Total pipeline length")
-        D = st.number_input("Pipe Diameter (mm)", value=25.0, help="Internal pipe diameter") / 1000
-        t_pipe = st.number_input("Pipe Thickness (mm)", value=2.0, help="Pipe wall thickness") / 1000
+        L = st.number_input("Pipe Length (m)", value=5.0)
+        D = st.number_input("Pipe Diameter (mm)", value=25.0) / 1000
+        t_pipe = st.number_input("Pipe Thickness (mm)", value=2.0) / 1000
 
     with colB:
-        V = st.number_input("Flow Velocity (m/s)", value=2.0, help="Higher velocity increases surge pressure")
-        t_stop = st.number_input("Flow Stopping Time (sec)", value=3.0, help="Valve closure or pump trip time")
-        allowable = st.number_input("Allowable Pressure (bar)", value=10.0, help="Maximum safe pressure")
-        H = st.number_input(
-    "Elevation Difference (m)", 
-    value=0.0, 
-    help="(+ve = rising pipe, -ve = falling pipe)"
-)
+        V = st.number_input("Flow Velocity (m/s)", value=2.0)
+        t_stop = st.number_input("Flow Stopping Time (sec)", value=3.0)
+        allowable = st.number_input("Allowable Pressure (bar)", value=10.0)
 
-    # MATERIAL
+        H = st.number_input(
+            "Elevation Difference (m)",
+            value=0.0,
+            help="(+ve = rising pipe, -ve = falling pipe)"
+        )
+
     materials = {
         "DI": {"E": 1.7e11, "rho": 1000, "K": 2.2e9},
         "MS": {"E": 2.0e11, "rho": 1000, "K": 2.2e9},
@@ -94,95 +66,44 @@ with tab1:
 
     run = st.button("▶ Run Analysis")
 
-    # ----------------------------------
-    # CALCULATION + RESULTS
-    # ----------------------------------
-if run:
+    if run:
 
-    # CALCULATIONS
-    a = np.sqrt(K / (rho * (1 + (K * D) / (E * t_pipe))))
-    deltaP = rho * L * V / t_stop
-    deltaP_bar = deltaP / 1e5
-    head = deltaP / (rho * 9.81)
+        # CALCULATIONS
+        a = np.sqrt(K / (rho * (1 + (K * D) / (E * t_pipe))))
+        deltaP = rho * L * V / t_stop
+        deltaP_bar = deltaP / 1e5
+        head = deltaP / (rho * 9.81)
 
-    # ✅ Static pressure (CORRECTLY INSIDE)
-    static_pressure = rho * 9.81 * H
-    static_bar = static_pressure / 1e5
+        static_pressure = rho * 9.81 * H
+        static_bar = static_pressure / 1e5
 
-    # ✅ Total pressure
-    total_pressure = deltaP_bar + static_bar
+        total_pressure = deltaP_bar + static_bar
+        ratio = total_pressure / allowable
 
-    # ✅ Ratio
-    ratio = total_pressure / allowable
+        col1, col2 = st.columns([2, 1])
 
-    # ✅ Columns
-    col1, col2 = st.columns([2, 1])
+        # LEFT PANEL
+        with col1:
+            st.header("Results")
 
-    # ✅ NO EXTRA INDENT HERE
-with col1:
-    st.header("Results")
+            st.write(f"Wave Speed: {a:.2f} m/s")
+            st.write(f"Surge Pressure: {deltaP_bar:.2f} bar")
+            st.write(f"Head Rise: {head:.2f} m")
+            st.write(f"Static Pressure: {static_bar:.2f} bar")
+            st.write(f"Total Pressure: {total_pressure:.2f} bar")
 
-    st.write(f"Wave Speed: {a:.2f} m/s")
-    st.write(f"Surge Pressure: {deltaP_bar:.2f} bar")
-    st.write(f"Head Rise: {head:.2f} m")
-    st.write(f"Static Pressure: {static_bar:.2f} bar")
-    st.write(f"Total Pressure: {total_pressure:.2f} bar")
+            st.header("Risk Assessment")
 
-            # RISK
-    st.header("Risk Assessment")
-
-    if ratio > 1.5:
-        st.error("🔴 Critical – Exceeds safe limit")
-    elif ratio > 1.0:
-        st.warning("🟡 High – Needs mitigation")
-    elif ratio > 0.7:
-        st.info("🟢 Moderate – Review recommended")
-    else:
-        st.success("✅ Safe")
-
-            # ---------------- IMPACT ----------------
-    st.header("Impact on System")
-
-    st.subheader("Structural / Mechanical Impact")
-    st.markdown("""
-• Risk of pipe rupture or failure  
-• High stresses in pipe walls, joints and fittings  
-• Fatigue damage due to repeated transient events  
-• Leakage or joint separation  
-• Failure of supports or anchors  
-""")
-
-    st.subheader("Hydraulic Impact")
-    st.markdown("""
-• Pressure wave propagation in pipeline  
-• Flow instability during transient events  
-• Possible vacuum (negative pressure) conditions  
-• Column separation in extreme cases  
-• Pressure oscillations  
-""")
-
-    st.subheader("Operational Impact")
-    st.markdown("""
-• Reduced system reliability  
-• Increased chances of shutdown  
-• Difficulty maintaining steady flow  
-• Reduced efficiency under transient conditions  
-""")
-
-            # ---------------- RECOMMENDATIONS ----------------
-            st.header("Recommendations")
-
-            if ratio > 1.0:
-                st.write("✅ Provide surge tank or air vessel")
-                st.write("✅ Install pressure relief valve")
-                st.write("✅ Increase stopping time (slow operation)")
+            if ratio > 1.5:
+                st.error("🔴 Critical – Exceeds safe limit")
+            elif ratio > 1.0:
+                st.warning("🟡 High – Needs mitigation")
             elif ratio > 0.7:
-                st.write("✅ Review transient conditions")
-                st.write("✅ Consider protection if system is critical")
+                st.info("🟢 Moderate – Review recommended")
             else:
-                st.write("✅ No action required")
+                st.success("✅ Safe")
 
-        # ---------------- RIGHT PANEL ----------------
+        # RIGHT PANEL
         with col2:
             st.header("Pressure vs Time")
 
@@ -196,20 +117,6 @@ with col1:
             ax.grid()
 
             st.pyplot(fig)
-
-            st.subheader("📘 Graph Interpretation")
-
-            st.markdown("""
-• The curve represents pressure variation due to a transient event (valve closure or pump trip)  
-• Oscillations indicate pressure waves traveling in the pipeline  
-• Peaks represent high surge pressure  
-• Troughs indicate low pressure or vacuum conditions  
-• Amplitude decreases due to damping effects  
-""")
-
-            st.info(
-                "This is a simplified representation of transient response. Actual systems may show more complex behavior."
-            )
 
     else:
         st.info("Click Run Analysis to generate graph")
