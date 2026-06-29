@@ -131,20 +131,20 @@ with col1:
             # RISK
     st.header("Risk Assessment")
 
-            if ratio > 1.5:
-                st.error("🔴 Critical – Exceeds safe limit")
-            elif ratio > 1.0:
-                st.warning("🟡 High – Needs mitigation")
-            elif ratio > 0.7:
-                st.info("🟢 Moderate – Review recommended")
-            else:
-                st.success("✅ Safe")
+    if ratio > 1.5:
+        st.error("🔴 Critical – Exceeds safe limit")
+    elif ratio > 1.0:
+        st.warning("🟡 High – Needs mitigation")
+    elif ratio > 0.7:
+        st.info("🟢 Moderate – Review recommended")
+    else:
+        st.success("✅ Safe")
 
             # ---------------- IMPACT ----------------
-            st.header("Impact on System")
+    st.header("Impact on System")
 
-            st.subheader("Structural / Mechanical Impact")
-            st.markdown("""
+    st.subheader("Structural / Mechanical Impact")
+    st.markdown("""
 • Risk of pipe rupture or failure  
 • High stresses in pipe walls, joints and fittings  
 • Fatigue damage due to repeated transient events  
@@ -152,8 +152,8 @@ with col1:
 • Failure of supports or anchors  
 """)
 
-            st.subheader("Hydraulic Impact")
-            st.markdown("""
+    st.subheader("Hydraulic Impact")
+    st.markdown("""
 • Pressure wave propagation in pipeline  
 • Flow instability during transient events  
 • Possible vacuum (negative pressure) conditions  
@@ -161,8 +161,8 @@ with col1:
 • Pressure oscillations  
 """)
 
-            st.subheader("Operational Impact")
-            st.markdown("""
+    st.subheader("Operational Impact")
+    st.markdown("""
 • Reduced system reliability  
 • Increased chances of shutdown  
 • Difficulty maintaining steady flow  
