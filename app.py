@@ -27,7 +27,7 @@ with col2:
 st.markdown("---")
 
 # TABS
-tab1, tab2 = st.tabs(["🔧 Analysis Tool", "📚 Theory & Guidelines"])
+tab1, tab2 = st.tabs(["🔧 Pipeline Transient Analysis Tool", "📚 Theory & Guidelines"])
 
 # ==================================
 # TAB 1
@@ -105,15 +105,15 @@ with tab1:
 
         # RIGHT PANEL
         with col2:
-            st.header("Pressure vs Time")
+            st.header("Transient Pressure vs Time")
 
             time = np.linspace(0, 2, 100)
-            pressure = deltaP_bar * np.exp(-2 * time) * np.cos(10 * time)
+            Transient pressure = deltaP_bar * np.exp(-2 * time) * np.cos(10 * time)
 
             fig, ax = plt.subplots()
-            ax.plot(time, pressure)
+            ax.plot(time, Transient pressure)
             ax.set_xlabel("Time (s)")
-            ax.set_ylabel("Pressure (bar)")
+            ax.set_ylabel("Transient pressure (bar)")
             ax.grid()
 
             st.pyplot(fig)
@@ -201,7 +201,7 @@ with tab2:
 
     st.write(
         "Surge pressure is generated due to the change in velocity of the fluid. "
-        "The magnitude of surge pressure depends on pipeline length, flow velocity, and stopping time."
+        "The magnitude of surge pressure depends on pipeline length, flow velocity, stopping time and elevation difference."
     )
 
     st.write(
@@ -329,7 +329,6 @@ with tab2:
 
     st.subheader("6. Engineering Insight")
 
-   
 
     # ----------------------------------
     # DESIGN GUIDELINES
