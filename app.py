@@ -156,11 +156,11 @@ def create_pdf(L, D, t_pipe, V, t_stop, H, allowable, material,
     logo_path = os.path.join("images", "logo.png")
 
     if os.path.exists(logo_path):
-        logo = Image(logo_path, width=80, height=40)
+        logo = Image(logo_path, width=100, height=40)
 
         header_table = Table(
             [[Paragraph("<b>Pipeline Transient Analysis Report</b>", styles['Title']), logo]],
-            colWidths=[350, 100]
+            colWidths=[400, 100]
         )
     else:
         header_table = Table(
