@@ -130,7 +130,8 @@ Material affects wave speed and surge pressure.
 
 # ==================================
 # LEFT PANEL
-with col1:
+if run:
+    with col1:
     st.header("Results")
 
     st.write(f"Wave Speed: {a:.2f} m/s")
