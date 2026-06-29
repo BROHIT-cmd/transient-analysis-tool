@@ -119,14 +119,14 @@ if run:
     col1, col2 = st.columns([2, 1])
 
     # ✅ NO EXTRA INDENT HERE
-    with col1:
-        st.header("Results")
+with col1:
+    st.header("Results")
 
-            st.write(f"Wave Speed: {a:.2f} m/s")
-            st.write(f"Surge Pressure: {deltaP_bar:.2f} bar")
-            st.write(f"Head Rise: {head:.2f} m")
-            st.write(f"Static Pressure: {static_bar:.2f} bar")
-            st.write(f"Total Pressure: {total_pressure:.2f} bar")
+    st.write(f"Wave Speed: {a:.2f} m/s")
+    st.write(f"Surge Pressure: {deltaP_bar:.2f} bar")
+    st.write(f"Head Rise: {head:.2f} m")
+    st.write(f"Static Pressure: {static_bar:.2f} bar")
+    st.write(f"Total Pressure: {total_pressure:.2f} bar")
 
             # RISK
             st.header("Risk Assessment")
