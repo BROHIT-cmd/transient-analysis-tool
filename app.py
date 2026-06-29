@@ -107,7 +107,15 @@ Where:
             help="Maximum safe pressure"
         )
 
-        material = st.selectbox("Material", ["DI", "MS", "HDPE"])
+        material = st.selectbox("Material", ["DI", "MS", "HDPE"], 
+    help="""
+Material affects wave speed and surge pressure.
+
+✅ Typical use:
+• DI / MS → rigid pipelines (high pressure systems)  
+• HDPE → flexible pipelines (less surge impact)
+"""
+)
 
     # ✅ MATERIAL DATA
     materials = {
