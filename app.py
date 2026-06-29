@@ -218,24 +218,26 @@ with col2:
 
     fig, ax = plt.subplots()
 
-    # 🔵 Blue line → transient pressure
-    ax.plot(time, pressure, color='blue', label="Transient Pressure")
+    # 🔵 Transient pressure
+    ax.plot(time, pressure, color='blue', linewidth=2, label="Transient Pressure")
 
-    # 🔴 Red dashed line → allowable pressure
-    ax.axhline(y=allowable, color='red', linestyle='--', label="Allowable Pressure")
+    # 🔴 Allowable pressure
+    ax.axhline(y=allowable, color='red', linestyle='--', linewidth=2, label="Allowable Pressure")
 
     # ✅ Labels
     ax.set_xlabel("Time (s)")
     ax.set_ylabel("Pressure (bar)")
 
-    # ✅ Legend (VERY IMPORTANT)
+    # ✅ Title (optional but recommended)
+    ax.set_title("Transient Pressure Response")
+
+    # ✅ Legend
     ax.legend()
 
     # ✅ Grid
     ax.grid()
 
     st.pyplot(fig)
-
 # ==================================
 # ✅ TAB 2 - THEORY
 # ==================================
