@@ -62,12 +62,12 @@ with tab1:
     colA, colB = st.columns(2)
 
     with colA:
-        L = st.number_input("Pipe Length (m)", value=5.0)
-        D = st.number_input("Pipe Diameter (mm)", value=25.0) / 1000
-        t_pipe = st.number_input("Pipe Thickness (mm)", value=2.0) / 1000
+        L = st.number_input("Pipe Length (m)", value=5.0, help="Total pipeline length")
+        D = st.number_input("Pipe Diameter (mm)", value=25.0, help="Internal pipe diameter") / 1000
+        t_pipe = st.number_input("Pipe Thickness (mm)", value=2.0, help="Pipe wall thickness") / 1000
 
     with colB:
-        V = st.number_input("Flow Velocity (m/s)", value=2.0)
+        V = st.number_input("Flow Velocity (m/s)", value=2.0, help="Higher velocity increases surge pressure")
         t_stop = st.number_input(
     "Flow Stopping Time (sec)",
     value=3.0,
