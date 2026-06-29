@@ -132,28 +132,49 @@ Material affects wave speed and surge pressure.
 
 run = st.button("▶ Run Analysis", key="run_analysis")
 
+from reportlab.platypus import Table, TableStyle
+from reportlab.lib import colors
+
 def create_pdf(L, D, t_pipe, V, t_stop, H, allowable, material,
                a, deltaP_bar, static_bar, total_pressure, ratio, t_critical, fig):
 
+    # Save graph as image
     tmp_img = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
     fig.savefig(tmp_img.name)
 
+    # Create PDF
     tmp_pdf = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
-
     doc = SimpleDocTemplate(tmp_pdf.name, pagesize=A4)
-    styles = getSampleStyleSheet()
 
+    styles = getSampleStyleSheet()
     content = []
 
-    # Title
-    content.append(Paragraph("Pipeline Transient Analysis Report", styles['Title']))
-    content.append(Spacer(1, 10))
+    # =========================
+    # ✅ HEADER (LOGO + TITLE)
+    # =========================
 
-    # About
-    content.append(Paragraph("This report presents transient analysis results for pipeline systems including surge pressure evaluation, risk assessment and design guidance.", styles['Normal']))
-    content.append(Spacer(1, 10))
+    logo_path = os.path.join("images", "logo.png")
 
-    # Input data
+    if os.path.exists(logo_path):
+        logo = Image(logo_path, width=80, height=40)
+
+        header_table = Table(
+            [[Paragraph("<b>Pipeline Transient Analysis Report</b>", styles['Title']), logo]],
+            colWidths=[350, 100]
+        )
+    else:
+        header_table = Table(
+            [[Paragraph("<b>Pipeline Transient Analysis Report</b>", styles['Title']), ""]],
+            colWidths=[450, 0]
+        )
+
+    content.append(header_table)
+    content.append(Spacer(1, 15))
+
+    # =========================
+    # ✅ INPUT DATA
+    # =========================
+
     content.append(Paragraph("<b>Input Data</b>", styles['Heading2']))
     content.append(Paragraph(f"Pipe Length: {L} m", styles['Normal']))
     content.append(Paragraph(f"Diameter: {D*1000:.2f} mm", styles['Normal']))
@@ -164,7 +185,10 @@ def create_pdf(L, D, t_pipe, V, t_stop, H, allowable, material,
     content.append(Paragraph(f"Material: {material}", styles['Normal']))
     content.append(Spacer(1, 10))
 
-    # Results
+    # =========================
+    # ✅ RESULTS
+    # =========================
+
     content.append(Paragraph("<b>Results</b>", styles['Heading2']))
     content.append(Paragraph(f"Wave Speed: {a:.2f} m/s", styles['Normal']))
     content.append(Paragraph(f"Surge Pressure: {deltaP_bar:.2f} bar", styles['Normal']))
@@ -174,7 +198,10 @@ def create_pdf(L, D, t_pipe, V, t_stop, H, allowable, material,
     content.append(Paragraph(f"Critical Time: {t_critical:.2f} sec", styles['Normal']))
     content.append(Spacer(1, 10))
 
-    # Risk
+    # =========================
+    # ✅ RISK
+    # =========================
+
     content.append(Paragraph("<b>Risk Assessment</b>", styles['Heading2']))
 
     if ratio > 1.5:
@@ -189,14 +216,36 @@ def create_pdf(L, D, t_pipe, V, t_stop, H, allowable, material,
     content.append(Paragraph(f"Risk Level: {risk}", styles['Normal']))
     content.append(Spacer(1, 10))
 
-    # Graph
+    # =========================
+    # ✅ GRAPH
+    # =========================
+
     content.append(Paragraph("<b>Transient Pressure Graph</b>", styles['Heading2']))
     content.append(Image(tmp_img.name, width=400, height=250))
 
-    # Build PDF
-    doc.build(content)
+    # =========================
+    # ✅ BORDER
+    # =========================
+
+    def draw_border(canvas, doc):
+        width, height = A4
+        margin = 20
+
+        canvas.setStrokeColor(colors.black)
+        canvas.setLineWidth(1)
+
+        canvas.rect(
+            margin,
+            margin,
+            width - 2 * margin,
+            height - 2 * margin
+        )
+
+    # Build PDF with border
+    doc.build(content, onFirstPage=draw_border, onLaterPages=draw_border)
 
     return tmp_pdf.name
+                   
 if run:
 
     # CALCULATIONS
