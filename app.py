@@ -129,44 +129,42 @@ Material affects wave speed and surge pressure.
     run = st.button("▶ Run Analysis")
 
 # ==================================
-    if run:
+# LEFT PANEL
+with col1:
+    st.header("Results")
 
-        # CALCULATIONS
-        a = np.sqrt(K / (rho * (1 + (K * D) / (E * t_pipe))))
-        deltaP = rho * L * V / t_stop
-        deltaP_bar = deltaP / 1e5
-        head = deltaP / (rho * 9.81)
+    st.write(f"Wave Speed: {a:.2f} m/s")
+    st.write(f"Surge Pressure: {deltaP_bar:.2f} bar")
+    st.write(f"Head Rise: {head:.2f} m")
+    st.write(f"Static Pressure: {static_bar:.2f} bar")
+    st.write(f"Total Pressure: {total_pressure:.2f} bar")
+    st.write(f"Pressure Ratio: {ratio:.2f}")
 
-        static_pressure = rho * 9.81 * H
-        static_bar = static_pressure / 1e5
+    t_critical = 2 * L / a
+    st.write(f"Critical Time: {t_critical:.2f} sec")
 
-        total_pressure = deltaP_bar + static_bar
-        ratio = total_pressure / allowable
+    # ✅ Critical warning
+    if t_stop < t_critical:
+        st.warning("⚠ Stopping time too short → high surge risk")
 
-        col1, col2 = st.columns([2, 1])
+    # ✅ RISK (✅ MUST BE INSIDE col1)
+    st.header("Risk Assessment")
 
-        # LEFT PANEL
-        with col1:
-            st.header("Results")
-    
-            st.write(f"Wave Speed: {a:.2f} m/s")
-            st.write(f"Surge Pressure: {deltaP_bar:.2f} bar")
-            st.write(f"Head Rise: {head:.2f} m")
-            st.write(f"Static Pressure: {static_bar:.2f} bar")
-            st.write(f"Total Pressure: {total_pressure:.2f} bar")
-            st.write(f"Pressure Ratio: {ratio:.2f}")
-
-            t_critical = 2 * L / a
-            st.write(f"Critical Time: {t_critical:.2f} sec")
-
-            
+    if ratio > 1.5:
+        st.error("🔴 Critical – Exceeds safe limit")
+    elif ratio > 1.0:
+        st.warning("🟡 High – Needs mitigation")
+    elif ratio > 0.7:
+        st.info("🟢 Moderate – Review recommended")
+    else:
+        st.success("✅ Safe")            
          # ✅ Critical warning
             if t_stop < t_critical:
                 st.warning("⚠ Stopping time too short → high surge risk")
  
             # ✅ RISK
     st.header("Risk Assessment")
-
+    
     if ratio > 1.5:
         st.error("🔴 Critical – Exceeds safe limit")
     elif ratio > 1.0:
