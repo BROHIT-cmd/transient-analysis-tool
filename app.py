@@ -334,7 +334,11 @@ if run:
     # ✅ RIGHT PANEL (GRAPH)
     # =========================
     with col2:
-        st.header("Transient Pressure vs Time", loc='center')
+    # Center main heading
+st.markdown("<h2 style='text-align: center;'>Transient Pressure vs Time</h2>", unsafe_allow_html=True)
+
+# Graph title
+ax.set_title("Transient Pressure Response", loc='center', fontsize=12, fontweight='bold')
 
         time = np.linspace(0, 2, 100)
         pressure = deltaP_bar * np.exp(-2 * time) * np.cos(10 * time)
