@@ -233,7 +233,7 @@ with col2:
 • Review recommended  
 """)
 
-     else:
+    else:
         st.success("✅ Minimal Impact")
         st.markdown("""
 • Safe condition  
