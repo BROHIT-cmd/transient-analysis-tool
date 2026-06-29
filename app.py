@@ -130,24 +130,31 @@ Material affects wave speed and surge pressure.
 
 #==================================
 
+# RUN BUTTON
+run = st.button("▶ Run Analysis")
+
 if run:
 
-    # ✅ CALCULATIONS
+    # CALCULATIONS
     a = np.sqrt(K / (rho * (1 + (K * D) / (E * t_pipe))))
     deltaP = rho * L * V / t_stop
     deltaP_bar = deltaP / 1e5
     head = deltaP / (rho * 9.81)
 
-    static_bar = (rho * 9.81 * H) / 1e5
+    static_pressure = rho * 9.81 * H
+    static_bar = static_pressure / 1e5
+
     total_pressure = deltaP_bar + static_bar
     ratio = total_pressure / allowable
 
     t_critical = 2 * L / a
 
-    # ✅ CREATE COLUMNS HERE (INSIDE if run)
+    # CREATE COLUMNS
     col1, col2 = st.columns([2, 1])
 
-    # ✅ LEFT PANEL (INSIDE if run)
+    # =========================
+    # ✅ LEFT PANEL
+    # =========================
     with col1:
         st.header("Results")
 
@@ -160,83 +167,83 @@ if run:
 
         st.write(f"Critical Time: {t_critical:.2f} sec")
 
+        # ✅ Critical warning
         if t_stop < t_critical:
             st.warning("⚠ Stopping time too short → high surge risk")
 
+        # ✅ RISK
         st.header("Risk Assessment")
 
         if ratio > 1.5:
-            st.error("🔴 Critical")
+            st.error("🔴 Critical – Exceeds safe limit")
         elif ratio > 1.0:
-            st.warning("🟡 High")
+            st.warning("🟡 High – Needs mitigation")
         elif ratio > 0.7:
-            st.info("🟢 Moderate")
+            st.info("🟢 Moderate – Review recommended")
         else:
             st.success("✅ Safe")
-         
-    # ✅ IMPACT (DYNAMIC)
-    st.header("Impact on System")
 
-    if ratio > 1.5:
-        st.error("🔴 Severe Impact")
-        st.markdown("""
+        # ✅ IMPACT (DYNAMIC)
+        st.header("Impact on System")
+
+        if ratio > 1.5:
+            st.error("🔴 Severe Impact")
+            st.markdown("""
 • Pipe burst / failure likely  
 • Extreme pressure surge  
 • System shutdown risk  
 """)
 
-    elif ratio > 1.0:
-        st.warning("🟡 High Impact")
-        st.markdown("""
+        elif ratio > 1.0:
+            st.warning("🟡 High Impact")
+            st.markdown("""
 • High stress in pipeline  
 • Pressure fluctuations  
 • Reliability issues  
 """)
 
-    elif ratio > 0.7:
-        st.info("🟢 Moderate Impact")
-        st.markdown("""
+        elif ratio > 0.7:
+            st.info("🟢 Moderate Impact")
+            st.markdown("""
 • Moderate stress  
 • Minor fluctuations  
 • Review recommended  
 """)
 
-    else:
-        st.success("✅ Minimal Impact")
-        st.markdown("""
+        else:
+            st.success("✅ Minimal Impact")
+            st.markdown("""
 • Safe condition  
 • Stable operation  
 """)
-        # RIGHT PANEL
-with col2:
-    st.header("Transient Pressure vs Time")
 
-    time = np.linspace(0, 2, 100)
-    pressure = deltaP_bar * np.exp(-2 * time) * np.cos(10 * time)
+    # =========================
+    # ✅ RIGHT PANEL (GRAPH)
+    # =========================
+    with col2:
+        st.header("Transient Pressure vs Time")
 
-    fig, ax = plt.subplots()
+        time = np.linspace(0, 2, 100)
+        pressure = deltaP_bar * np.exp(-2 * time) * np.cos(10 * time)
 
-    # 🔵 Transient pressure
-    ax.plot(time, pressure, color='blue', linewidth=2, label="Transient Pressure")
+        fig, ax = plt.subplots()
 
-    # 🔴 Allowable pressure
-    ax.axhline(y=allowable, color='red', linestyle='--', linewidth=2, label="Allowable Pressure")
+        # 🔵 Transient pressure
+        ax.plot(time, pressure, color='blue', linewidth=2, label="Transient Pressure")
 
-    # ✅ Labels
-    ax.set_xlabel("Time (s)")
-    ax.set_ylabel("Pressure (bar)")
+        # 🔴 Allowable pressure
+        ax.axhline(y=allowable, color='red', linestyle='--', linewidth=2, label="Allowable Pressure")
 
-    # ✅ Title (optional but recommended)
-    ax.set_title("Transient Pressure Response")
+        ax.set_xlabel("Time (s)")
+        ax.set_ylabel("Pressure (bar)")
+        ax.set_title("Transient Pressure Response")
+        ax.legend()
+        ax.grid()
 
-    # ✅ Legend
-    ax.legend()
+        st.pyplot(fig)
 
-    # ✅ Grid
-    ax.grid()
-
-    st.pyplot(fig)
-
+else:
+    st.info("Click Run Analysis to generate results")
 # ==================================
 # ✅ TAB 2 - THEORY
 # ==================================
