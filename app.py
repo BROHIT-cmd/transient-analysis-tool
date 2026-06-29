@@ -241,8 +241,6 @@ if run:
 
         st.pyplot(fig)
 
-else:
-    st.info("Click Run Analysis to generate results")
 
 def create_pdf(L, D, t_pipe, V, t_stop, H, allowable, material,
                a, deltaP_bar, static_bar, total_pressure, ratio, t_critical, fig):
@@ -322,6 +320,9 @@ with open(pdf_file, "rb") as f:
         file_name="Transient_Analysis_Report.pdf",
         mime="application/pdf"
     )
+
+else:
+    st.info("Click Run Analysis to generate results")
 
 # ==================================
 # ✅ TAB 2 - THEORY
