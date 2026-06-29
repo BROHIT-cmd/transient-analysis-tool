@@ -80,7 +80,7 @@ How fast the flow stops.
 ✅ Recommended:
 • Keep stopping time greater than critical time (2L/a)
 
-Where:
+Where:\n
 • L = pipeline length  
 • a = wave speed (speed of pressure wave in pipe)
 
