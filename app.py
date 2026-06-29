@@ -241,15 +241,6 @@ if run:
 
         st.pyplot(fig)
 
-def create_pdf(L, D, t_pipe, V, t_stop, H, allowable, material,
-               a, deltaP_bar, static_bar, total_pressure, ratio, t_critical, fig):
-
-    # temporary image file
-    tmp_img = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
-    fig.savefig(tmp_img.name)
-
-    # PDF file
-
    # ✅ PDF GENERATION (INSIDE if run)
     pdf_file = create_pdf(
         L, D, t_pipe, V, t_stop, H, allowable, material,
