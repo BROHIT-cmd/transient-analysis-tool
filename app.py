@@ -111,7 +111,7 @@ Where:
     help="""
 Material affects wave speed and surge pressure.
 
-✅ Typical use:
+✅ Typical use:\n
 • DI / MS → rigid pipelines (high pressure systems)  
 • HDPE → flexible pipelines (less surge impact)
 """
