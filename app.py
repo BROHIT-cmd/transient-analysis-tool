@@ -160,8 +160,8 @@ Material affects wave speed and surge pressure.
         t_critical = 2 * L / a
         st.write(f"Critical Time: {t_critical:.2f} sec")
 
-        if t_stop < t_critical:
-        st.warning("⚠ Stopping time too short → high surge risk")
+            if t_stop < t_critical:
+            st.warning("⚠ Stopping time too short → high surge risk")
 
             # ✅ RISK
             st.header("Risk Assessment")
