@@ -321,9 +321,6 @@ with open(pdf_file, "rb") as f:
         mime="application/pdf"
     )
 
-else:
-    st.info("Click here generate report")
-
 # ==================================
 # ✅ TAB 2 - THEORY
 # ==================================
