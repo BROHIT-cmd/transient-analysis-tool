@@ -97,24 +97,25 @@ with tab1:
     # ----------------------------------
     # CALCULATION + RESULTS
     # ----------------------------------
-    if run:
+if run:
 
-        # CALCULATIONS
-        a = np.sqrt(K / (rho * (1 + (K * D) / (E * t_pipe))))
-        deltaP = rho * L * V / t_stop
-        deltaP_bar = deltaP / 1e5
-        head = deltaP / (rho * 9.81)
-        ratio = total_pressure / allowable
+    # CALCULATIONS
+    a = np.sqrt(K / (rho * (1 + (K * D) / (E * t_pipe))))
+    deltaP = rho * L * V / t_stop
+    deltaP_bar = deltaP / 1e5
+    head = deltaP / (rho * 9.81)
 
-        ratio = total_pressure / allowable
+    # ✅ Static pressure due to elevation
+    static_pressure = rho * 9.81 * H
+    static_bar = static_pressure / 1e5
 
-        col1, col2 = st.columns([2, 1])
-        # Static pressure due to elevation
-static_pressure = rho * 9.81 * H
-static_bar = static_pressure / 1e5
+    # ✅ Total pressure
+    total_pressure = deltaP_bar + static_bar
 
-# Total pressure (Transient + Static)
-total_pressure = total_pressure
+    # ✅ Correct ratio
+    ratio = total_pressure / allowable
+
+    col1, col2 = st.columns([2, 1])
 
         # ---------------- LEFT PANEL ----------------
         with col1:
