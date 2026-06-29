@@ -103,37 +103,6 @@ with tab1:
             else:
                 st.success("✅ Safe")
 
-        
-            # ---------------- IMPACT ----------------
-            st.header("Impact on System")
-
-            st.subheader("Structural / Mechanical Impact")
-            st.markdown("""
-• Risk of pipe rupture or failure  
-• High stresses in pipe walls, joints and fittings  
-• Fatigue damage due to repeated transient events  
-• Leakage or joint separation  
-• Failure of supports or anchors  
-""")
-
-            st.subheader("Hydraulic Impact")
-            st.markdown("""
-• Pressure wave propagation in pipeline  
-• Flow instability during transient events  
-• Possible vacuum (negative pressure) conditions  
-• Column separation in extreme cases  
-• Pressure oscillations  
-""")
-
-            st.subheader("Operational Impact")
-            st.markdown("""
-• Reduced system reliability  
-• Increased chances of shutdown  
-• Difficulty maintaining steady flow  
-• Reduced efficiency under transient conditions  
-""")
-
-
         # RIGHT PANEL
         with col2:
             st.header("Pressure vs Time")
@@ -243,6 +212,36 @@ with tab2:
 
     st.markdown("---")
 
+            # ---------------- IMPACT ----------------
+            st.header("Impact on System")
+
+            st.subheader("Structural / Mechanical Impact")
+            st.markdown("""
+• Risk of pipe rupture or failure  
+• High stresses in pipe walls, joints and fittings  
+• Fatigue damage due to repeated transient events  
+• Leakage or joint separation  
+• Failure of supports or anchors  
+""")
+
+            st.subheader("Hydraulic Impact")
+            st.markdown("""
+• Pressure wave propagation in pipeline  
+• Flow instability during transient events  
+• Possible vacuum (negative pressure) conditions  
+• Column separation in extreme cases  
+• Pressure oscillations  
+""")
+
+            st.subheader("Operational Impact")
+            st.markdown("""
+• Reduced system reliability  
+• Increased chances of shutdown  
+• Difficulty maintaining steady flow  
+• Reduced efficiency under transient conditions  
+""")
+
+   
     # ----------------------------------
     # FLOW STOPPING TIME (ENHANCED)
     # ----------------------------------
