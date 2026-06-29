@@ -193,82 +193,53 @@ with col2:
     st.pyplot(fig)
     
             # ✅ RISK
-            st.header("Risk Assessment")
+    st.header("Risk Assessment")
 
-            if ratio > 1.5:
-                st.error("🔴 Critical – Exceeds safe limit")
-            elif ratio > 1.0:
-                st.warning("🟡 High – Needs mitigation")
-            elif ratio > 0.7:
-                st.info("🟢 Moderate – Review recommended")
-            else:
-                st.success("✅ Safe")
+    if ratio > 1.5:
+        st.error("🔴 Critical – Exceeds safe limit")
+    elif ratio > 1.0:
+        st.warning("🟡 High – Needs mitigation")
+    elif ratio > 0.7:
+        st.info("🟢 Moderate – Review recommended")
+    else:
+        st.success("✅ Safe")
 
             
 
-            # ✅ IMPACT (DYNAMIC)
-            st.header("Impact on System")
+    # ✅ IMPACT (DYNAMIC)
+    st.header("Impact on System")
 
-            if ratio > 1.5:
-                st.error("🔴 Severe Impact")
-                st.markdown("""
+    if ratio > 1.5:
+        st.error("🔴 Severe Impact")
+        st.markdown("""
 • Pipe burst / failure likely  
 • Extreme pressure surge  
 • System shutdown risk  
 """)
 
-            elif ratio > 1.0:
-                st.warning("🟡 High Impact")
-                st.markdown("""
+    elif ratio > 1.0:
+        st.warning("🟡 High Impact")
+        st.markdown("""
 • High stress in pipeline  
 • Pressure fluctuations  
 • Reliability issues  
 """)
 
-            elif ratio > 0.7:
-                st.info("🟢 Moderate Impact")
-                st.markdown("""
+    elif ratio > 0.7:
+        st.info("🟢 Moderate Impact")
+        st.markdown("""
 • Moderate stress  
 • Minor fluctuations  
 • Review recommended  
 """)
 
-            else:
-                st.success("✅ Minimal Impact")
-                st.markdown("""
+     else:
+        st.success("✅ Minimal Impact")
+        st.markdown("""
 • Safe condition  
 • Stable operation  
 """)
 
-        # RIGHT PANEL
-with col2:
-    st.header("Transient Pressure vs Time")
-
-    time = np.linspace(0, 2, 100)
-    pressure = deltaP_bar * np.exp(-2 * time) * np.cos(10 * time)
-
-    fig, ax = plt.subplots()
-
-    # 🔵 Transient pressure
-    ax.plot(time, pressure, color='blue', linewidth=2, label="Transient Pressure")
-
-    # 🔴 Allowable pressure
-    ax.axhline(y=allowable, color='red', linestyle='--', linewidth=2, label="Allowable Pressure")
-
-    # ✅ Labels
-    ax.set_xlabel("Time (s)")
-    ax.set_ylabel("Pressure (bar)")
-
-    # ✅ Title (optional but recommended)
-    ax.set_title("Transient Pressure Response")
-
-    # ✅ Legend
-    ax.legend()
-
-    # ✅ Grid
-    ax.grid()
-
-    st.pyplot(fig)
 # ==================================
 # ✅ TAB 2 - THEORY
 # ==================================
