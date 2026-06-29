@@ -68,7 +68,27 @@ with tab1:
 
     with colB:
         V = st.number_input("Flow Velocity (m/s)", value=2.0)
-        t_stop = st.number_input("Flow Stopping Time (sec)", value=3.0)
+        t_stop = st.number_input(
+    "Flow Stopping Time (sec)",
+    value=3.0,
+    help="""
+How fast the flow stops.
+
+• Fast stop → high surge (danger)  
+• Slow stop → low surge (safe)
+
+✅ Recommended:
+• Keep stopping time greater than critical time (2L/a)
+
+Where:
+• L = pipeline length  
+• a = wave speed (speed of pressure wave in pipe)
+
+• Typical range: 3–10 seconds (based on Hydraulic Institute practice)
+
+⚠ Very fast stopping (< 1 sec) = high risk
+"""
+)
         allowable = st.number_input("Allowable Pressure (bar)", value=10.0)
 
         H = st.number_input(
