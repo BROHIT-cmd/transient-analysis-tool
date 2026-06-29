@@ -4,6 +4,10 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+from reportlab.lib.pagesizes import A4
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
+from reportlab.lib.styles import getSampleStyleSheet
+import tempfile
 
 # PAGE CONFIG
 st.set_page_config(layout="wide")
@@ -239,6 +243,86 @@ if run:
 
 else:
     st.info("Click Run Analysis to generate results")
+
+def create_pdf(L, D, t_pipe, V, t_stop, H, allowable, material,
+               a, deltaP_bar, static_bar, total_pressure, ratio, t_critical, fig):
+
+    # temporary image file
+    tmp_img = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
+    fig.savefig(tmp_img.name)
+
+    # PDF file
+    tmp_pdf = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+
+    doc = SimpleDocTemplate(tmp_pdf.name, pagesize=A4)
+    styles = getSampleStyleSheet()
+
+    content = []
+
+    # Title
+    content.append(Paragraph("Pipeline Transient Analysis Report", styles['Title']))
+    content.append(Spacer(1, 10))
+
+    # About
+    content.append(Paragraph("This report presents transient analysis results for pipeline systems including surge pressure evaluation, risk assessment and design guidance.", styles['Normal']))
+    content.append(Spacer(1, 10))
+
+    # Input data
+    content.append(Paragraph("<b>Input Data</b>", styles['Heading2']))
+    content.append(Paragraph(f"Pipe Length: {L} m", styles['Normal']))
+    content.append(Paragraph(f"Diameter: {D*1000:.2f} mm", styles['Normal']))
+    content.append(Paragraph(f"Thickness: {t_pipe*1000:.2f} mm", styles['Normal']))
+    content.append(Paragraph(f"Velocity: {V} m/s", styles['Normal']))
+    content.append(Paragraph(f"Stopping Time: {t_stop} sec", styles['Normal']))
+    content.append(Paragraph(f"Elevation: {H} m", styles['Normal']))
+    content.append(Paragraph(f"Material: {material}", styles['Normal']))
+    content.append(Spacer(1, 10))
+
+    # Results
+    content.append(Paragraph("<b>Results</b>", styles['Heading2']))
+    content.append(Paragraph(f"Wave Speed: {a:.2f} m/s", styles['Normal']))
+    content.append(Paragraph(f"Surge Pressure: {deltaP_bar:.2f} bar", styles['Normal']))
+    content.append(Paragraph(f"Static Pressure: {static_bar:.2f} bar", styles['Normal']))
+    content.append(Paragraph(f"Total Pressure: {total_pressure:.2f} bar", styles['Normal']))
+    content.append(Paragraph(f"Pressure Ratio: {ratio:.2f}", styles['Normal']))
+    content.append(Paragraph(f"Critical Time: {t_critical:.2f} sec", styles['Normal']))
+    content.append(Spacer(1, 10))
+
+    # Risk
+    content.append(Paragraph("<b>Risk Assessment</b>", styles['Heading2']))
+
+    if ratio > 1.5:
+        risk = "Critical"
+    elif ratio > 1.0:
+        risk = "High"
+    elif ratio > 0.7:
+        risk = "Moderate"
+    else:
+        risk = "Safe"
+
+    content.append(Paragraph(f"Risk Level: {risk}", styles['Normal']))
+    content.append(Spacer(1, 10))
+
+    # Graph
+    content.append(Paragraph("<b>Transient Pressure Graph</b>", styles['Heading2']))
+    content.append(Image(tmp_img.name, width=400, height=250))
+
+    # Build PDF
+    doc.build(content)
+
+    return tmp_pdf.name
+
+pdf_file = create_pdf(L, D, t_pipe, V, t_stop, H, allowable, material,
+                     a, deltaP_bar, static_bar, total_pressure, ratio, t_critical, fig)
+
+with open(pdf_file, "rb") as f:
+    st.download_button(
+        "📄 Download PDF Report",
+        f,
+        file_name="Transient_Analysis_Report.pdf",
+        mime="application/pdf"
+    )
+
 # ==================================
 # ✅ TAB 2 - THEORY
 # ==================================
