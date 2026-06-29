@@ -129,7 +129,7 @@ with col1:
     st.write(f"Total Pressure: {total_pressure:.2f} bar")
 
             # RISK
-            st.header("Risk Assessment")
+    st.header("Risk Assessment")
 
             if ratio > 1.5:
                 st.error("🔴 Critical – Exceeds safe limit")
