@@ -147,21 +147,20 @@ Material affects wave speed and surge pressure.
         col1, col2 = st.columns([2, 1])
 
         # LEFT PANEL
-with col1:
-    st.header("Results")
+    with col1:
+        st.header("Results")
+    
+        st.write(f"Wave Speed: {a:.2f} m/s")
+        st.write(f"Surge Pressure: {deltaP_bar:.2f} bar")
+        st.write(f"Head Rise: {head:.2f} m")
+        st.write(f"Static Pressure: {static_bar:.2f} bar")
+        st.write(f"Total Pressure: {total_pressure:.2f} bar")
+        st.write(f"Pressure Ratio: {ratio:.2f}")
 
-    st.write(f"Wave Speed: {a:.2f} m/s")
-    st.write(f"Surge Pressure: {deltaP_bar:.2f} bar")
-    st.write(f"Head Rise: {head:.2f} m")
-    st.write(f"Static Pressure: {static_bar:.2f} bar")
-    st.write(f"Total Pressure: {total_pressure:.2f} bar")
-    st.write(f"Pressure Ratio: {ratio:.2f}")
+        t_critical = 2 * L / a
+        st.write(f"Critical Time: {t_critical:.2f} sec")
 
-    t_critical = 2 * L / a
-    st.write(f"Critical Time: {t_critical:.2f} sec")
-
-    # ✅ FIXED INDENTATION
-    if t_stop < t_critical:
+        if t_stop < t_critical:
         st.warning("⚠ Stopping time too short → high surge risk")
 
             # ✅ RISK
