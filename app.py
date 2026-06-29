@@ -89,7 +89,7 @@ Where:\n
 ⚠ Very fast stopping (< 1 sec) = high risk
 """
 )
-        allowable = st.number_input("Allowable Pressure (bar)", value=10.0)
+        allowable = st.number_input("Allowable Pressure (bar)", value=10.0, help="Maximum safe pressure")
 
         H = st.number_input(
             "Elevation Difference (m)",
