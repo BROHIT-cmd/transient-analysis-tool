@@ -241,10 +241,6 @@ with col2:
 
     st.pyplot(fig)
 
-
-    else:
-        st.info("Click Run Analysis to generate results")
-
 # ==================================
 # ✅ TAB 2 - THEORY
 # ==================================
