@@ -184,7 +184,76 @@ Material affects wave speed and surge pressure.
 
     else:
         st.info("Click Run Analysis to generate graph")
+# ---------------- IMPACT ----------------
+st.header("Impact on System")
 
+# 🔴 CRITICAL
+if ratio > 1.5:
+    st.error("🔴 Severe Impact on System")
+
+    st.markdown("""
+**Structural / Mechanical:**
+• High risk of pipe rupture or burst  
+• Failure of joints, fittings, and supports  
+
+**Hydraulic:**
+• Extreme pressure surge and oscillations  
+• Possible column separation and vacuum formation  
+
+**Operational:**
+• System failure / shutdown likely  
+• Immediate protection required  
+""")
+
+# 🟡 HIGH
+elif ratio > 1.0:
+    st.warning("🟡 High Impact on System")
+
+    st.markdown("""
+**Structural / Mechanical:**
+• Significant stress in pipeline and components  
+• Risk of leakage or damage  
+
+**Hydraulic:**
+• Noticeable pressure fluctuations  
+• Risk of transient instability  
+
+**Operational:**
+• Reduced system reliability  
+• Surge protection recommended  
+""")
+
+# 🟢 MODERATE
+elif ratio > 0.7:
+    st.info("🟢 Moderate Impact on System")
+
+    st.markdown("""
+**Structural / Mechanical:**
+• Moderate stress levels in pipeline  
+
+**Hydraulic:**
+• Minor pressure fluctuations  
+
+**Operational:**
+• System generally stable  
+• Review conditions for safety margin  
+""")
+
+# ✅ SAFE
+else:
+    st.success("✅ Minimal Impact on System")
+
+    st.markdown("""
+**Structural / Mechanical:**
+• No significant stress on pipeline  
+
+**Hydraulic:**
+• Stable flow conditions  
+
+**Operational:**
+• System operating safely  
+• No action required  
+""")
 
 # ==================================
 # ✅ TAB 2 - THEORY
