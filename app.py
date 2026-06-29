@@ -208,9 +208,9 @@ with tab2:
     st.write("👉 Short stopping time → rapid deceleration → higher surge")
     st.write("👉 Longer pipelines → greater pressure build-up")
 
-    st.write("Transient Pressure = Surge Pressure = \Delta P")
-    st.write("Static Pressure = due to elevation")
-    st.write("Total Pressure = Transient Pressure + Static Pressure")
+    st.write("👉Transient Pressure = Surge Pressure = r"\\Delta P")
+    st.write("👉Static Pressure = due to elevation")
+    st.write("👉Total Pressure = Transient Pressure + Static Pressure")
     
 
     st.markdown("---")
