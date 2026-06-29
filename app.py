@@ -241,6 +241,21 @@ if run:
 
         st.pyplot(fig)
 
+   
+   # ✅ PDF GENERATION (INSIDE if run)
+    pdf_file = create_pdf(
+        L, D, t_pipe, V, t_stop, H, allowable, material,
+        a, deltaP_bar, static_bar, total_pressure, ratio, t_critical, fig
+    )
+
+    with open(pdf_file, "rb") as f:
+        st.download_button(
+            "📄 Download PDF Report",
+            f,
+            file_name="Transient_Analysis_Report.pdf",
+            mime="application/pdf"
+        )
+
     tmp_pdf = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
 
     doc = SimpleDocTemplate(tmp_pdf.name, pagesize=A4)
@@ -303,20 +318,6 @@ if run:
 
 
 
-    
-   # ✅ PDF GENERATION (INSIDE if run)
-    pdf_file = create_pdf(
-        L, D, t_pipe, V, t_stop, H, allowable, material,
-        a, deltaP_bar, static_bar, total_pressure, ratio, t_critical, fig
-    )
-
-    with open(pdf_file, "rb") as f:
-        st.download_button(
-            "📄 Download PDF Report",
-            f,
-            file_name="Transient_Analysis_Report.pdf",
-            mime="application/pdf"
-        )
 
 # ==================================
 # ✅ TAB 2 - THEORY
