@@ -213,7 +213,7 @@ with tab2:
     st.markdown("---")
 
             # ---------------- IMPACT ----------------
-    st.header("Impact on System")
+    st.header("How transient pressure (surge / water hammer) affects the pipeline, equipment, and operation of the system")
 
     st.subheader("Structural / Mechanical Impact")
     st.markdown("""
