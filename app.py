@@ -156,6 +156,79 @@ Material affects wave speed and surge pressure.
             st.write(f"Static Pressure: {static_bar:.2f} bar")
             st.write(f"Total Pressure: {total_pressure:.2f} bar")
 
+            # ---------------- IMPACT ----------------
+st.header("Impact on System")
+
+# 🔴 CRITICAL
+if ratio > 1.5:
+    st.error("🔴 Severe Impact on System")
+
+    st.markdown("""
+**Structural / Mechanical:**
+• High risk of pipe rupture or bursting  
+• Failure of joints, fittings, and supports  
+
+**Hydraulic:**
+• Extreme pressure surge and oscillations  
+• Possible column separation and vacuum formation  
+
+**Operational:**
+• System failure or shutdown likely  
+• Immediate protection required  
+""")
+
+# 🟡 HIGH
+elif ratio > 1.0:
+    st.warning("🟡 High Impact on System")
+
+    st.markdown("""
+**Structural / Mechanical:**
+• High stress in pipeline and components  
+• Risk of leakage or fatigue failure  
+
+**Hydraulic:**
+• Large pressure fluctuations  
+• Unsteady flow conditions  
+
+**Operational:**
+• Reduced system reliability  
+• Surge protection recommended  
+""")
+
+# 🟢 MODERATE
+elif ratio > 0.7:
+    st.info("🟢 Moderate Impact on System")
+
+    st.markdown("""
+**Structural / Mechanical:**
+• Moderate stress in pipeline  
+
+**Hydraulic:**
+• Minor pressure variations  
+• Generally stable flow  
+
+**Operational:**
+• Acceptable performance  
+• Review for safety margin  
+""")
+
+# ✅ SAFE
+else:
+    st.success("✅ Minimal Impact on System")
+
+    st.markdown("""
+**Structural / Mechanical:**
+• No significant stress  
+
+**Hydraulic:**
+• Stable pressure conditions  
+
+**Operational:**
+• System operating safely  
+• No action required  
+""")
+
+
             st.header("Risk Assessment")
 
             if ratio > 1.5:
