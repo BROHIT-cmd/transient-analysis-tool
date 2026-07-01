@@ -90,8 +90,7 @@ with tab1:
             help="""
 How fast the flow stops.
 
-✅ Recommended:
-• Keep stopping time greater than critical time (2L/a)
+✅ Recommended: Keep stopping time greater than critical time (2L/a)
 
 Where:
 • L = pipeline length  
@@ -181,7 +180,7 @@ def create_pdf(L, D, t_pipe, V, t_stop, H, allowable, material,
     content.append(Paragraph(f"Stopping Time: {t_stop} sec", styles['Normal']))
     content.append(Paragraph(f"Elevation: {H} m", styles['Normal']))
     content.append(Paragraph(f"Material: {material}", styles['Normal']))
-    content.append(Spacer(1, 10))
+    content.append(Spacer(1, 5))
 
     # =========================
     # ✅ RESULTS
