@@ -194,6 +194,7 @@ def create_pdf(L, D, t_pipe, V, t_stop, H, allowable, material,
     content.append(Paragraph(f"Total Pressure: {total_pressure:.2f} bar", styles['Normal']))
     content.append(Paragraph(f"Pressure Ratio: {ratio:.2f}", styles['Normal']))
     content.append(Paragraph(f"Critical Time: {t_critical:.2f} sec", styles['Normal']))
+    content.append(Paragraph(f"Calculated Velocity: {V:.2f} m/s", styles['Normal']))       
     content.append(Spacer(1, 10))
 
     # =========================
@@ -279,7 +280,7 @@ if run:
         st.write(f"Static Pressure: {static_bar:.2f} bar")
         st.write(f"Total Pressure: {total_pressure:.2f} bar")
         st.write(f"Pressure Ratio: {ratio:.2f}")
-
+        st.write(f"Calculated Velocity: {V:.2f} m/s")
         st.write(f"Critical Time: {t_critical:.2f} sec")
 
         # ✅ Critical warning
