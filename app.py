@@ -114,7 +114,6 @@ Where:
             help="Maximum safe pressure"
         )
 
-)
 
     # ✅ MATERIAL DATA
     materials = {
