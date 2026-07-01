@@ -88,9 +88,6 @@ with tab1:
             help="""
 How fast the flow stops.
 
-• Fast stop → high surge (danger)  
-• Slow stop → low surge (safe)
-
 ✅ Recommended:
 • Keep stopping time greater than critical time (2L/a)
 
@@ -100,7 +97,6 @@ Where:
 
 • Typical range: 3–10 seconds (based on Hydraulic Institute practice)
 
-⚠ Very fast stopping (< 1 sec) = high risk
 """
         )
 
