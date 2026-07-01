@@ -80,7 +80,9 @@ with tab1:
 
     # ✅ RIGHT COLUMN (Flow + Limits)
     with colB:
-        V = st.number_input("Flow Velocity (m/s)", value=2.0, help="Higher velocity increases surge pressure")
+        Q = st.number_input("Flow Rate (m³/s)", value=0.001, help="Provide flow in m3/sec")
+        H = st.number_input("Head (m)", value=10.0, help="Provide head in meters")
+        #V = st.number_input("Flow Velocity (m/s)", value=2.0, help="Higher velocity increases surge pressure")
 
         t_stop = st.number_input(
             "Flow Stopping Time (sec)",
@@ -246,6 +248,8 @@ if run:
 
     # CALCULATIONS
     #Wave Speed
+    A = np.pi * (D**2) / 4     # Pipe area
+    V = Q / A                  # Velocity from flow
     a = np.sqrt(K / (rho * (1 + (K * D) / (E * t_pipe))))
     deltaP = rho * L * V / t_stop
     deltaP_bar = deltaP / 1e5
