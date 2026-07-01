@@ -76,7 +76,7 @@ with tab1:
             "Elevation Difference (m)",
             value=0.0,
             help="(+ve → pipe goes upward, -ve → pipe goes downward)"
-
+            )
 
         material = st.selectbox("Material", ["DI", "MS", "HDPE"], 
             help="""
@@ -86,7 +86,7 @@ with tab1:
                 • DI / MS → rigid pipelines (high pressure systems)  
                 • HDPE → flexible pipelines (less surge impact)
                 """
-        )
+                               )
 
     # ✅ RIGHT COLUMN (Flow + Limits)
     with colB:
