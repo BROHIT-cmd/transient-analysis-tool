@@ -249,6 +249,7 @@ def create_pdf(L, D, t_pipe, V, t_stop, H, allowable, material,
 if run:
 
     # CALCULATIONS
+    #Wave Speed
     a = np.sqrt(K / (rho * (1 + (K * D) / (E * t_pipe))))
     deltaP = rho * L * V / t_stop
     deltaP_bar = deltaP / 1e5
@@ -260,6 +261,7 @@ if run:
     total_pressure = deltaP_bar + static_bar
     ratio = total_pressure / allowable
 
+    #Critical Time
     t_critical = 2 * L / a
 
     # CREATE COLUMNS
