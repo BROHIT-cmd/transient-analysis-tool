@@ -79,13 +79,13 @@ with tab1:
 
 
         material = st.selectbox("Material", ["DI", "MS", "HDPE"], 
-        help="""
-Material affects wave speed and surge pressure.
+            help="""
+                Material affects wave speed and surge pressure.
 
-✅ Typical use:\n
-• DI / MS → rigid pipelines (high pressure systems)  
-• HDPE → flexible pipelines (less surge impact)
-"""
+                ✅ Typical use:\n
+                • DI / MS → rigid pipelines (high pressure systems)  
+                • HDPE → flexible pipelines (less surge impact)
+                """
         )
 
     # ✅ RIGHT COLUMN (Flow + Limits)
